@@ -1,49 +1,15 @@
 import { PerspectiveCamera, useGLTF } from "@react-three/drei";
 import { GroupProps } from "@react-three/fiber";
-import gsap from "gsap";
-import React from "react";
-import * as THREE from "three";
 import { GLTFResult } from "../types";
-import useSound from "../hooks/use-sound";
+import useSceneInteractions from "../hooks/use-scene-interactions";
 
 export default function Scene(props: GroupProps) {
+  const {
+    refs: { gameboyRef, X_ButtonRef, A_ButtonRef, Y_ButtonRef, B_ButtonRef },
+    handlers: { handleButtonPress },
+  } = useSceneInteractions();
+
   const { nodes, materials } = useGLTF("/scene.glb") as unknown as GLTFResult;
-
-  const gameboyRef = React.useRef<THREE.Group>(null!);
-
-  const AButtonRef = React.useRef(null!);
-  const XButtonRef = React.useRef(null!);
-  const YButtonRef = React.useRef(null!);
-  const BButtonRef = React.useRef(null!);
-
-  const { playSound } = useSound();
-
-  React.useEffect(() => {
-    if (gameboyRef.current) {
-      gsap.to(gameboyRef.current.rotation, {
-        y: "-=0.05",
-        x: "-=0.05",
-        z: "-=0.05",
-        duration: 5,
-        ease: "power1.inOut",
-        yoyo: true,
-        repeat: -1,
-      });
-    }
-  }, []);
-
-  const handleButtonPress = (ref: React.RefObject<THREE.Group>) => {
-    if (ref.current) {
-      playSound(500);
-      gsap.to(ref.current.position, {
-        z: "-=0.025",
-        duration: 0.4,
-        ease: "power2.in",
-        yoyo: true,
-        repeat: 1,
-      });
-    }
-  };
 
   return (
     <group {...props} dispose={null}>
@@ -228,8 +194,8 @@ export default function Scene(props: GroupProps) {
           rotation={[-0.215, 0.356, 0.101]}
         />
         <group
-          onClick={() => handleButtonPress(AButtonRef)}
-          ref={AButtonRef}
+          onClick={() => handleButtonPress(A_ButtonRef)}
+          ref={A_ButtonRef}
           name="A_button"
           position={[0.937, 0.623, -0.283]}
           rotation={[-0.215, 0.356, 0.101]}
@@ -246,8 +212,8 @@ export default function Scene(props: GroupProps) {
           />
         </group>
         <group
-          onClick={() => handleButtonPress(XButtonRef)}
-          ref={XButtonRef}
+          onClick={() => handleButtonPress(X_ButtonRef)}
+          ref={X_ButtonRef}
           name="X_button"
           position={[0.937, 0.623, -0.283]}
           rotation={[-0.215, 0.356, 0.101]}
@@ -264,8 +230,8 @@ export default function Scene(props: GroupProps) {
           />
         </group>
         <group
-          onClick={() => handleButtonPress(YButtonRef)}
-          ref={YButtonRef}
+          onClick={() => handleButtonPress(Y_ButtonRef)}
+          ref={Y_ButtonRef}
           name="Y_button"
           position={[0.937, 0.623, -0.283]}
           rotation={[-0.215, 0.356, 0.101]}
@@ -282,8 +248,8 @@ export default function Scene(props: GroupProps) {
           />
         </group>
         <group
-          onClick={() => handleButtonPress(BButtonRef)}
-          ref={BButtonRef}
+          onClick={() => handleButtonPress(B_ButtonRef)}
+          ref={B_ButtonRef}
           name="B_button"
           position={[0.937, 0.623, -0.283]}
           rotation={[-0.215, 0.356, 0.101]}
