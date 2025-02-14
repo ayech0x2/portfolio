@@ -6,7 +6,7 @@ import "./index.css";
 
 function App() {
   return (
-    <div id="canvas-container" onClick={() => {}}>
+    <div id="canvas-container">
       <Canvas
         camera={{ position: [0, 2, 2] }}
         gl={{
