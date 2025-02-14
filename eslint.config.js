@@ -16,10 +16,11 @@ export default tseslint.config(
     plugins: {
       "react-hooks": reactHooks,
       "react-refresh": reactRefresh,
-      "@react-three": ReactThree,
+      // "@react-three": ReactThree,
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
+      "react-hooks/exhaustive-deps": "error",
       "react-refresh/only-export-components": [
         "warn",
         { allowConstantExport: true },

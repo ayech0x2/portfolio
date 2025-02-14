@@ -1,18 +1,27 @@
+import { useGSAP } from "@gsap/react";
 import { PerspectiveCamera, useGLTF } from "@react-three/drei";
 import { GroupProps } from "@react-three/fiber";
-import { GLTFResult } from "../types";
+import * as React from "react";
+import * as THREE from "three";
+import useSceneAnimations from "../hooks/use-scene-animations";
 import useSceneInteractions from "../hooks/use-scene-interactions";
+import { GLTFResult } from "../types";
 
 export default function Scene(props: GroupProps) {
-  const {
-    refs: { gameboyRef, X_ButtonRef, A_ButtonRef, Y_ButtonRef, B_ButtonRef },
-    handlers: { handleButtonPress },
-  } = useSceneInteractions();
+  const sceneRef = React.useRef<THREE.Group>(null!);
 
   const { nodes, materials } = useGLTF("/scene.glb") as unknown as GLTFResult;
 
+  const { handleButtonPress } = useSceneInteractions();
+
+  const { playEntranceAnimation } = useSceneAnimations(sceneRef);
+
+  useGSAP(() => {
+    playEntranceAnimation();
+  });
+
   return (
-    <group {...props} dispose={null}>
+    <group {...props} ref={sceneRef} dispose={null}>
       <PerspectiveCamera
         name="A_camera"
         makeDefault={false}
@@ -30,7 +39,7 @@ export default function Scene(props: GroupProps) {
         fov={20.862}
         position={[0.002, 0.169, 6.53]}
       />
-      <group ref={gameboyRef}>
+      <group name="gameboy">
         <mesh
           name="battery"
           geometry={nodes.battery.geometry}
@@ -194,8 +203,7 @@ export default function Scene(props: GroupProps) {
           rotation={[-0.215, 0.356, 0.101]}
         />
         <group
-          onClick={() => handleButtonPress(A_ButtonRef)}
-          ref={A_ButtonRef}
+          onClick={() => handleButtonPress(sceneRef, "A_button")}
           name="A_button"
           position={[0.937, 0.623, -0.283]}
           rotation={[-0.215, 0.356, 0.101]}
@@ -212,8 +220,7 @@ export default function Scene(props: GroupProps) {
           />
         </group>
         <group
-          onClick={() => handleButtonPress(X_ButtonRef)}
-          ref={X_ButtonRef}
+          onClick={() => handleButtonPress(sceneRef, "X_button")}
           name="X_button"
           position={[0.937, 0.623, -0.283]}
           rotation={[-0.215, 0.356, 0.101]}
@@ -230,8 +237,7 @@ export default function Scene(props: GroupProps) {
           />
         </group>
         <group
-          onClick={() => handleButtonPress(Y_ButtonRef)}
-          ref={Y_ButtonRef}
+          onClick={() => handleButtonPress(sceneRef, "Y_button")}
           name="Y_button"
           position={[0.937, 0.623, -0.283]}
           rotation={[-0.215, 0.356, 0.101]}
@@ -248,8 +254,7 @@ export default function Scene(props: GroupProps) {
           />
         </group>
         <group
-          onClick={() => handleButtonPress(B_ButtonRef)}
-          ref={B_ButtonRef}
+          onClick={() => handleButtonPress(sceneRef, "B_button")}
           name="B_button"
           position={[0.937, 0.623, -0.283]}
           rotation={[-0.215, 0.356, 0.101]}
