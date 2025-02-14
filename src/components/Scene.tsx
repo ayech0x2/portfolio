@@ -1,11 +1,14 @@
 import { PerspectiveCamera, useGLTF } from "@react-three/drei";
+import { GroupProps } from "@react-three/fiber";
 import gsap from "gsap";
 import React from "react";
+import * as THREE from "three";
+import { GLTFResult } from "../types";
 
-export default function Scene(props: any) {
-  const { nodes, materials } = useGLTF("/scene.glb");
+export default function Scene(props: GroupProps) {
+  const { nodes, materials } = useGLTF("/scene.glb") as unknown as GLTFResult;
 
-  const gameboyRef = React.useRef(null!);
+  const gameboyRef = React.useRef<THREE.Group>(null!);
 
   const AButtonRef = React.useRef(null!);
   const XButtonRef = React.useRef(null!);
@@ -13,25 +16,29 @@ export default function Scene(props: any) {
   const BButtonRef = React.useRef(null!);
 
   React.useEffect(() => {
-    gsap.to(gameboyRef.current.rotation, {
-      y: "-=0.05",
-      x: "-=0.05",
-      z: "-=0.05",
-      duration: 5,
-      ease: "power1.inOut",
-      yoyo: true,
-      repeat: -1,
-    });
+    if (gameboyRef.current) {
+      gsap.to(gameboyRef.current.rotation, {
+        y: "-=0.05",
+        x: "-=0.05",
+        z: "-=0.05",
+        duration: 5,
+        ease: "power1.inOut",
+        yoyo: true,
+        repeat: -1,
+      });
+    }
   }, []);
 
-  const handleButtonPress = (ref) => {
-    gsap.to(ref.current.position, {
-      z: "-=0.025",
-      duration: 0.4,
-      ease: "power2.in",
-      yoyo: true,
-      repeat: 1,
-    });
+  const handleButtonPress = (ref: React.RefObject<THREE.Group>) => {
+    if (ref.current) {
+      gsap.to(ref.current.position, {
+        z: "-=0.025",
+        duration: 0.4,
+        ease: "power2.in",
+        yoyo: true,
+        repeat: 1,
+      });
+    }
   };
 
   return (
