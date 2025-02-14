@@ -4,6 +4,7 @@ import gsap from "gsap";
 import React from "react";
 import * as THREE from "three";
 import { GLTFResult } from "../types";
+import useSound from "../hooks/use-sound";
 
 export default function Scene(props: GroupProps) {
   const { nodes, materials } = useGLTF("/scene.glb") as unknown as GLTFResult;
@@ -14,6 +15,8 @@ export default function Scene(props: GroupProps) {
   const XButtonRef = React.useRef(null!);
   const YButtonRef = React.useRef(null!);
   const BButtonRef = React.useRef(null!);
+
+  const { playSound } = useSound();
 
   React.useEffect(() => {
     if (gameboyRef.current) {
@@ -31,6 +34,7 @@ export default function Scene(props: GroupProps) {
 
   const handleButtonPress = (ref: React.RefObject<THREE.Group>) => {
     if (ref.current) {
+      playSound(500);
       gsap.to(ref.current.position, {
         z: "-=0.025",
         duration: 0.4,

@@ -34,9 +34,9 @@ export default function SceneSetup() {
           luminanceSmoothing={0.05}
         />
         <DepthOfField focusDistance={1} focalLength={0.1} bokehScale={0.1} />
-        <Vignette eskil={false} offset={0.2} darkness={0.8} />
+        <Vignette eskil={false} offset={0.1} darkness={0.8} />
         <ChromaticAberration
-          offset={new THREE.Vector2(0.0005, 0.0005)}
+          offset={new THREE.Vector2(0.0006, 0.0006)}
           radialModulation={false}
           modulationOffset={0}
         />
