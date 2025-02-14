@@ -22,7 +22,6 @@ export default function SceneSetup() {
         minDistance={4}
         maxDistance={20}
         dampingFactor={0.01}
-        enableZoom={false}
       />
       <Stats />
       <Particles />

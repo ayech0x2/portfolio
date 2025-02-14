@@ -20,6 +20,6 @@ body {
   top: 0;
   left: 0;
   z-index: 99;
-  height: 6000px;
+  height: 500vh;
   width: 100vw;
 }

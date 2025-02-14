@@ -1,13 +1,19 @@
 import gsap from "gsap";
 import * as React from "react";
 import * as THREE from "three";
-import useRightAnimation from "./animations/use-right-animation";
 import useSceneHelpers from "./use-scene-helpers";
+import useRightHandAnimation from "./animations/use-right-hand-animation";
+import useLeftHandAnimation from "./animations/use-left-hand-animation";
+import useScreenAnimation from "./animations/use-screen-animation";
+import useScrewsHandAnimation from "./animations/use-screws-animations";
 
 export default function useSceneAnimations(
   sceneRef: React.RefObject<THREE.Group>
 ) {
-  const rightAnimation = useRightAnimation(sceneRef);
+  const rightHandAnimation = useRightHandAnimation(sceneRef);
+  const leftHandAnimation = useLeftHandAnimation(sceneRef);
+  const screenAnimation = useScreenAnimation(sceneRef);
+  const screwsAnimation = useScrewsHandAnimation(sceneRef);
 
   const { get3dObjectByName } = useSceneHelpers();
 
@@ -27,17 +33,19 @@ export default function useSceneAnimations(
   };
 
   const playEntranceAnimation = () => {
-    const timelineAnimation = gsap.timeline({
-      scrollTrigger: {
-        trigger: "#scroll-trigger",
-        scrub: 2,
-        start: "top top",
-        end: "bottom bottom",
-        markers: true,
-        // toggleActions: "play none none reverse",
-      },
-    });
-    timelineAnimation.add(rightAnimation);
+    // const timelineAnimation = gsap.timeline({
+    //   scrollTrigger: {
+    //     trigger: "#scroll-trigger",
+    //     scrub: 1,
+    //     start: "top top",
+    //     end: "bottom bottom",
+    //     snap: 0.1,
+    //   },
+    // });
+    // timelineAnimation.add(screwsAnimation);
+    // timelineAnimation.add(screenAnimation);
+    // timelineAnimation.add(rightHandAnimation);
+    // timelineAnimation.add(leftHandAnimation);
   };
 
   return { startWigglingGameBoy, playEntranceAnimation };
