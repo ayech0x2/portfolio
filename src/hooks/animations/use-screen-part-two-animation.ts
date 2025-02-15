@@ -3,20 +3,23 @@ import * as React from "react";
 import * as THREE from "three";
 import useSceneHelpers from "../use-scene-helpers";
 
-export default function useRightHandAnimation(
+export default function useScreenPartTwoAnimation(
   sceneRef: React.RefObject<THREE.Group>
 ) {
   const { get3dObjectByName } = useSceneHelpers();
 
   const animation = () => {
-    const rightHand = get3dObjectByName(sceneRef, "right_hand_center");
-    if (rightHand) {
+    const screenPartTwo = get3dObjectByName(
+      sceneRef,
+      "screen_part_two"
+    ) as THREE.Group;
+    if (screenPartTwo) {
       return gsap.fromTo(
-        rightHand.position,
-        { x: 4, z: -4 },
+        screenPartTwo.position,
+        { x: 6, z: -4 },
         {
-          x: rightHand.position.x,
-          z: rightHand.position.z,
+          x: screenPartTwo.position.x,
+          z: screenPartTwo.position.z,
           ease: "power1.inOut",
         }
       );

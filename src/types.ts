@@ -62,3 +62,17 @@ export type GLTFResult = GLTF & {
     ["Material.008"]: THREE.MeshStandardMaterial;
   };
 };
+
+export type CameraName =
+  | "DEFAULT_CAMERA"
+  | "FRONT_CAMERA"
+  | "LEFT_CAMERA"
+  | "RIGHT_CAMERA"
+  | "BACK_CAMERA"
+  | "SCREWS_CAMERA";
+
+export type EntranceAnimationName =
+  | "LEFT_HAND"
+  | "SCREEN"
+  | "RIGHT_HAND"
+  | "SCREWS";

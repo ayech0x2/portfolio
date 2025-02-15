@@ -1,4 +1,3 @@
-import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import * as React from "react";
 import * as THREE from "three";
@@ -8,9 +7,8 @@ export default function useScrewsHandAnimation(
   sceneRef: React.RefObject<THREE.Group>
 ) {
   const { get3dObjectByName } = useSceneHelpers();
-  const screwsAnimationTimeline = gsap.timeline();
 
-  useGSAP(() => {
+  const animation = () => {
     const screws = get3dObjectByName(sceneRef, "screws") as THREE.Mesh;
     if (screws.material instanceof Array) {
       screws.material.forEach((child) => {
@@ -22,28 +20,35 @@ export default function useScrewsHandAnimation(
       screws.material.opacity = 0;
     }
     if (screws) {
-      screwsAnimationTimeline.fromTo(
+      const _animation = gsap.fromTo(
         screws.position,
-        { z: -4 },
         {
+          x: screws.position.x - 0.1,
+          y: screws.position.y,
+          z: screws.position.z - 0.5,
+        },
+        {
+          x: screws.position.x,
+          y: screws.position.y,
           z: screws.position.z,
           ease: "power1.inOut",
-          duration: 1.5,
-          onUpdate: () => {
+          onUpdate: function () {
+            const progress = this.progress();
             if (screws.material instanceof Array) {
               screws.material.forEach((child) => {
                 child.transparent = true;
-                child.opacity = screwsAnimationTimeline.progress();
+                child.opacity = progress;
               });
             } else {
               screws.material.transparent = true;
-              screws.material.opacity = screwsAnimationTimeline.progress();
+              screws.material.opacity = progress;
             }
           },
         }
       );
+      return _animation;
     }
-  });
+  };
 
-  return screwsAnimationTimeline;
+  return { animation };
 }

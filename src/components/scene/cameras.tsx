@@ -5,7 +5,7 @@ export default function Cameras() {
   return (
     <React.Fragment>
       <PerspectiveCamera
-        name="A_camera"
+        name="DEFAULT_CAMERA"
         makeDefault={false}
         far={1000}
         near={0.1}
@@ -14,7 +14,7 @@ export default function Cameras() {
         rotation={[0.024, 1.271, -0.023]}
       />
       <PerspectiveCamera
-        name="main_camera"
+        name="FRONT_CAMERA"
         makeDefault={true}
         far={1000}
         near={0.1}
@@ -22,7 +22,7 @@ export default function Cameras() {
         position={[0, 0.169, 8]}
       />
       <PerspectiveCamera
-        name="right_camera"
+        name="RIGHT_CAMERA"
         makeDefault={false}
         far={1000}
         near={0.1}
@@ -31,7 +31,7 @@ export default function Cameras() {
         rotation={[0, Math.PI / 2, 0]}
       />
       <PerspectiveCamera
-        name="left_camera"
+        name="LEFT_CAMERA"
         makeDefault={false}
         far={1000}
         near={0.1}
@@ -40,7 +40,7 @@ export default function Cameras() {
         rotation={[Math.PI, -1.121, Math.PI]}
       />
       <PerspectiveCamera
-        name="back_camera"
+        name="BACK_CAMERA"
         makeDefault={false}
         far={1000}
         near={0.1}
@@ -49,7 +49,7 @@ export default function Cameras() {
         rotation={[-Math.PI, 0.022, -Math.PI]}
       />
       <PerspectiveCamera
-        name="screws_camera"
+        name="SCREWS_CAMERA"
         makeDefault={false}
         far={1000}
         near={0.1}

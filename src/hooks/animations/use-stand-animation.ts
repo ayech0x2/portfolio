@@ -3,20 +3,19 @@ import * as React from "react";
 import * as THREE from "three";
 import useSceneHelpers from "../use-scene-helpers";
 
-export default function useRightHandAnimation(
+export default function useStandAnimation(
   sceneRef: React.RefObject<THREE.Group>
 ) {
   const { get3dObjectByName } = useSceneHelpers();
 
   const animation = () => {
-    const rightHand = get3dObjectByName(sceneRef, "right_hand_center");
-    if (rightHand) {
+    const stand = get3dObjectByName(sceneRef, "stand_container");
+    if (stand) {
       return gsap.fromTo(
-        rightHand.position,
-        { x: 4, z: -4 },
+        stand.position,
+        { y: -2 },
         {
-          x: rightHand.position.x,
-          z: rightHand.position.z,
+          y: stand.position.y,
           ease: "power1.inOut",
         }
       );

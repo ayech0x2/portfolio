@@ -18,15 +18,13 @@ export default function SceneSetup() {
         minPolarAngle={Math.PI / 4}
         maxPolarAngle={Math.PI / 1.5}
         enablePan={false}
-        zoomSpeed={1}
-        minDistance={4}
-        maxDistance={20}
+        minDistance={6}
+        maxDistance={10}
         dampingFactor={0.01}
       />
       <Stats />
       <Particles />
       <Lights />
-      <axesHelper scale={4} />
       <EffectComposer>
         <Bloom
           intensity={0.1}

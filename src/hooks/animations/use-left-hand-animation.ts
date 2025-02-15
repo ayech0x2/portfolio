@@ -1,4 +1,3 @@
-import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import * as React from "react";
 import * as THREE from "three";
@@ -8,24 +7,21 @@ export default function useLeftHandAnimation(
   sceneRef: React.RefObject<THREE.Group>
 ) {
   const { get3dObjectByName } = useSceneHelpers();
-  const leftHandAnimationTimeline = gsap.timeline();
 
-  useGSAP(() => {
-    const left_hand = get3dObjectByName(sceneRef, "left_hand_center");
-
-    if (left_hand) {
-      leftHandAnimationTimeline.fromTo(
-        left_hand.position,
+  const animation = () => {
+    const leftHand = get3dObjectByName(sceneRef, "left_hand_center");
+    if (leftHand) {
+      return gsap.fromTo(
+        leftHand.position,
         { x: -4, z: -4 },
         {
-          x: left_hand.position.x,
-          z: left_hand.position.z,
+          x: leftHand.position.x,
+          z: leftHand.position.z,
           ease: "power1.inOut",
-          duration: 1.5,
         }
       );
     }
-  });
+  };
 
-  return leftHandAnimationTimeline;
+  return { animation };
 }
