@@ -28,6 +28,7 @@ export default function useScrewsHandAnimation(
         {
           z: screws.position.z,
           ease: "power1.inOut",
+          duration: 1.5,
           onUpdate: () => {
             if (screws.material instanceof Array) {
               screws.material.forEach((child) => {

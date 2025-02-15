@@ -7,12 +7,7 @@ export default function LeftHand({
   buttonPress: (buttonName: string) => void;
 }) {
   return (
-    <mesh
-      name="left_hand_center"
-      geometry={nodes.left_hand_center.geometry}
-      material={nodes.left_hand_center.material}
-      position={[-0.911, 0.298, 0.403]}
-    >
+    <group name="left_hand_center">
       <mesh
         name="circular_button"
         geometry={nodes.circular_button.geometry}
@@ -127,6 +122,6 @@ export default function LeftHand({
         position={[-0.911, 0.298, 0.403]}
         rotation={[0.281, 0.099, -0.014]}
       />
-    </mesh>
+    </group>
   );
 }

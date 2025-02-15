@@ -33,19 +33,18 @@ export default function useSceneAnimations(
   };
 
   const playEntranceAnimation = () => {
-    // const timelineAnimation = gsap.timeline({
-    //   scrollTrigger: {
-    //     trigger: "#scroll-trigger",
-    //     scrub: 1,
-    //     start: "top top",
-    //     end: "bottom bottom",
-    //     snap: 0.1,
-    //   },
-    // });
-    // timelineAnimation.add(screwsAnimation);
-    // timelineAnimation.add(screenAnimation);
-    // timelineAnimation.add(rightHandAnimation);
-    // timelineAnimation.add(leftHandAnimation);
+    const timelineAnimation = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#scroll-trigger",
+        scrub: true,
+        start: "top top",
+        end: "bottom bottom",
+      },
+    });
+    timelineAnimation.add(screwsAnimation);
+    timelineAnimation.add(screenAnimation);
+    timelineAnimation.add(rightHandAnimation);
+    timelineAnimation.add(leftHandAnimation);
   };
 
   return { startWigglingGameBoy, playEntranceAnimation };

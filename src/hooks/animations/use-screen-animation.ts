@@ -21,6 +21,7 @@ export default function useScreenAnimation(
           y: full_screen.position.y,
           z: full_screen.position.z,
           ease: "power1.inOut",
+          duration: 1.5,
         }
       );
     }

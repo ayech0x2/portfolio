@@ -8,12 +8,7 @@ export default function RightHand({
   buttonPress: (buttonName: string) => void;
 }) {
   return (
-    <mesh
-      name="right_hand_center"
-      geometry={nodes.right_hand_center.geometry}
-      material={nodes.right_hand_center.material}
-      position={[1.009, 0.348, -0.338]}
-    >
+    <group name="right_hand_center">
       <mesh
         name="top_right_button"
         geometry={nodes.top_right_button.geometry}
@@ -139,6 +134,6 @@ export default function RightHand({
           material={materials.Material}
         />
       </group>
-    </mesh>
+    </group>
   );
 }

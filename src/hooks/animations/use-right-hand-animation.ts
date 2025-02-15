@@ -11,7 +11,7 @@ export default function useRightHandAnimation(
   const rightHandAnimationTimeline = gsap.timeline();
 
   useGSAP(() => {
-    const right_hand = get3dObjectByName(sceneRef, "full_right_hand");
+    const right_hand = get3dObjectByName(sceneRef, "right_hand_center");
 
     if (right_hand) {
       rightHandAnimationTimeline.fromTo(
@@ -21,6 +21,7 @@ export default function useRightHandAnimation(
           x: right_hand.position.x,
           z: right_hand.position.z,
           ease: "power1.inOut",
+          duration: 1.5,
         }
       );
     }
