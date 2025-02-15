@@ -1,6 +1,7 @@
 import * as THREE from "three";
+import { GLTF } from "three-stdlib";
 
-export interface GLTFResult extends THREE.Object3D {
+export type GLTFResult = GLTF & {
   nodes: {
     battery: THREE.Mesh;
     charging_port: THREE.Mesh;
@@ -24,8 +25,6 @@ export interface GLTFResult extends THREE.Object3D {
     top_right_button: THREE.Mesh;
     utilities_buttons: THREE.Mesh;
     home_button_icon: THREE.Mesh;
-    PLUS_button: THREE.Mesh;
-    RIGHT_joystick: THREE.Mesh;
     A_button_1: THREE.Mesh;
     A_button_2: THREE.Mesh;
     X_button_1: THREE.Mesh;
@@ -42,18 +41,24 @@ export interface GLTFResult extends THREE.Object3D {
     RIGHT_button_2: THREE.Mesh;
     DOWN_button_1: THREE.Mesh;
     DOWN_button_2: THREE.Mesh;
+    PLUS_button: THREE.Mesh;
+    RIGHT_joystick: THREE.Mesh;
+    right_hand_center: THREE.Mesh;
+    left_hand_center: THREE.Mesh;
     stand: THREE.Mesh;
     circles: THREE.Mesh;
   };
   materials: {
-    ["Plastic black material"]: THREE.Material;
-    ["Plastic black material 2"]: THREE.Material;
-    ["Black grain leather"]: THREE.Material;
-    ["Material.001"]: THREE.Material;
-    ["Frozen white metal"]: THREE.Material;
-    ["plas"]: THREE.Material;
-    ["Material"]: THREE.Material;
-    ["screen"]: THREE.Material;
-    ["Material.008"]: THREE.Material;
+    ["Plastic black material"]: THREE.MeshStandardMaterial;
+    ["Black grain leather"]: THREE.MeshStandardMaterial;
+    ["Plastic black material"]: THREE.MeshStandardMaterial;
+    ["Plastic black material 2"]: THREE.MeshStandardMaterial;
+    ["Material.001"]: THREE.MeshStandardMaterial;
+    screen: THREE.MeshStandardMaterial;
+    ["Frozen white metal"]: THREE.MeshStandardMaterial;
+    ["Black grain leather"]: THREE.MeshStandardMaterial;
+    Material: THREE.MeshStandardMaterial;
+    plas: THREE.MeshStandardMaterial;
+    ["Material.008"]: THREE.MeshStandardMaterial;
   };
-}
+};
