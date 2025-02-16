@@ -1,3 +1,3 @@
 import { atom } from "jotai";
 
-export const isScrollEnabledAtom = atom(true);
+export const entranceAnimationFinishedAtom = atom(false);

@@ -1,8 +1,10 @@
 import { useFrame } from "@react-three/fiber";
 import * as React from "react";
+import * as THREE from "three";
 
 const Particles = () => {
-  const particlesRef = React.useRef(null!);
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const particlesRef = React.useRef<THREE.Points>(null!);
 
   const particleCount = 250;
   const positions = new Float32Array(particleCount * 10);
@@ -13,7 +15,7 @@ const Particles = () => {
     positions[i * 3 + 2] = (Math.random() - 0.5) * 10;
   }
 
-  useFrame((state, delta) => {
+  useFrame((_state, delta) => {
     if (particlesRef.current) {
       particlesRef.current.rotation.y += delta * 0.2;
     }
@@ -30,7 +32,7 @@ const Particles = () => {
         />
       </bufferGeometry>
       <pointsMaterial
-        size={0.02}
+        size={0.03}
         color={0xffffff}
         transparent
         opacity={0.1}

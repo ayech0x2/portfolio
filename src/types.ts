@@ -76,3 +76,7 @@ export type EntranceAnimationName =
   | "SCREEN"
   | "RIGHT_HAND"
   | "SCREWS";
+
+export interface ContainerProps {
+  children: React.ReactNode;
+}

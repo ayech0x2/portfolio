@@ -1,4 +1,8 @@
+import { Html } from "@react-three/drei";
 import { GLTFResult } from "../../types";
+import Hint from "./hint";
+import { useAtomValue } from "jotai";
+import { entranceAnimationFinishedAtom } from "../../atoms";
 
 export default function LeftHand({
   nodes,
@@ -6,6 +10,8 @@ export default function LeftHand({
 }: GLTFResult & {
   buttonPress: (buttonName: string) => void;
 }) {
+  const entranceAnimationFinished = useAtomValue(entranceAnimationFinishedAtom);
+
   return (
     <group name="left_hand_center">
       <mesh
@@ -32,7 +38,7 @@ export default function LeftHand({
           name="UP_button_1"
           geometry={nodes.UP_button_1.geometry}
           material={materials["Black grain leather"]}
-        />
+        ></mesh>
         <mesh
           name="UP_button_2"
           geometry={nodes.UP_button_2.geometry}
@@ -48,12 +54,20 @@ export default function LeftHand({
           name="LEFT_button_1"
           geometry={nodes.LEFT_button_1.geometry}
           material={materials["Black grain leather"]}
-        />
+        >
+          
+        </mesh>
         <mesh
           name="LEFT_button_2"
           geometry={nodes.LEFT_button_2.geometry}
           material={materials.Material}
-        />
+        >
+          {entranceAnimationFinished && (
+            <Html position={[0.12, 0, 0.1]} transform distanceFactor={1}>
+              <Hint />
+            </Html>
+          )}
+        </mesh>
       </group>
       <group
         name="RIGHT_button"

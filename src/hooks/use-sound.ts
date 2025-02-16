@@ -9,5 +9,14 @@ export default function useSound() {
       sound.play();
     }, delay);
   };
-  return { playSound };
+
+  const playBackgroundMusic = () => {
+    const sound = new Howl({
+      src: ["background_music.mp3"],
+      volume: 0.5,
+    });
+
+    sound.play();
+  };
+  return { playSound, playBackgroundMusic };
 }

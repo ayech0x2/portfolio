@@ -1,4 +1,4 @@
-import { OrbitControls, Stats } from "@react-three/drei";
+import { Environment, OrbitControls } from "@react-three/drei";
 import {
   Bloom,
   ChromaticAberration,
@@ -8,6 +8,7 @@ import {
 } from "@react-three/postprocessing";
 import * as React from "react";
 import * as THREE from "three";
+import Lightformers from "./light-formers";
 import Lights from "./lights";
 import Particles from "./particles";
 
@@ -22,13 +23,12 @@ export default function SceneSetup() {
         maxDistance={10}
         dampingFactor={0.01}
       />
-      <Stats />
       <Particles />
       <Lights />
       <EffectComposer>
         <Bloom
           intensity={0.1}
-          luminanceThreshold={0.1}
+          luminanceThreshold={0.4}
           luminanceSmoothing={0.05}
         />
         <DepthOfField focusDistance={1} focalLength={0.1} bokehScale={0.1} />
@@ -39,6 +39,9 @@ export default function SceneSetup() {
           modulationOffset={0}
         />
       </EffectComposer>
+      <Environment resolution={1024}>
+        <Lightformers />
+      </Environment>
     </React.Fragment>
   );
 }

@@ -1,0 +1,9 @@
+.container {
+  position: fixed;
+  z-index: 2;
+  width: 100vw;
+  padding: 2rem 8rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2rem;
+}

@@ -12,7 +12,7 @@ export default function Screen({ nodes, materials }: GLTFResult) {
           rotation={[0.281, 0.099, -0.014]}
         />
         <mesh
-          name="battery"
+          name="battery001"
           geometry={nodes.battery.geometry}
           material={materials["Plastic black material"]}
           position={[0.013, 0.086, 0.035]}
