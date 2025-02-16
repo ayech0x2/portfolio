@@ -21,3 +21,9 @@
 .semiBold {
   font-weight: 600;
 }
+
+.preventSelect {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

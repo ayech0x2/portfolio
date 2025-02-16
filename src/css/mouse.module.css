@@ -1,0 +1,20 @@
+.container {
+  position: fixed;
+  z-index: 9;
+  height: 7rem;
+  width: 7rem;
+  border-radius: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid white;
+}
+
+.text {
+  color: white;
+  font-size: 1.2rem;
+  text-align: center;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}

@@ -10,7 +10,7 @@ import useScrewsHandAnimation from "./animations/use-screws-animations";
 import useStandAnimation from "./animations/use-stand-animation";
 import useSceneHelpers from "./use-scene-helpers";
 import { useSetAtom } from "jotai";
-import { entranceAnimationFinishedAtom } from "../atoms";
+import { entranceAnimationFinishedAtom, mouseOnAtom } from "../atoms";
 
 export default function useSceneAnimations(
   sceneRef: React.RefObject<THREE.Group>
@@ -20,6 +20,8 @@ export default function useSceneAnimations(
   const setEntranceAnimationFinished = useSetAtom(
     entranceAnimationFinishedAtom
   );
+
+  const setMouseOn = useSetAtom(mouseOnAtom);
 
   const { animation: rightHandAnimation } = useRightHandAnimation(sceneRef);
   const { animation: leftHandAnimation } = useLeftHandAnimation(sceneRef);
@@ -69,6 +71,7 @@ export default function useSceneAnimations(
       },
       onComplete: function () {
         setEntranceAnimationFinished(true);
+        setMouseOn("DRAG");
         this.kill();
         const element = document.getElementById("scroll-trigger");
         if (element) element.style.height = "0px";

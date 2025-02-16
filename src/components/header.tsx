@@ -25,14 +25,23 @@ export default function Header() {
   return (
     <div ref={containerRef} className={styles.container}>
       <div
-        className={[text.title, text.textUppercase, text.semiBold].join(" ")}
+        className={[
+          text.title,
+          text.textUppercase,
+          text.semiBold,
+          text.preventSelect,
+        ].join(" ")}
       >
         Hamza ayech
       </div>
-      <div className={[text.subTitle, text.textUppercase].join(" ")}>
+      <div
+        className={[text.subTitle, text.textUppercase, text.preventSelect].join(
+          " "
+        )}
+      >
         Senior frontend developer
       </div>
-      <span className={[text.subTitle].join(" ")}>
+      <span className={[text.subTitle, text.preventSelect].join(" ")}>
         Nintendo Switch-inspired portfolio built with Three.js, Blender 3D, and
         React Three Fiber
       </span>

@@ -1,8 +1,8 @@
 import { Html } from "@react-three/drei";
 import { GLTFResult } from "../../types";
 import Hint from "./hint";
-import { useAtomValue } from "jotai";
-import { entranceAnimationFinishedAtom } from "../../atoms";
+import { useAtomValue, useSetAtom } from "jotai";
+import { entranceAnimationFinishedAtom, mouseOnAtom } from "../../atoms";
 
 export default function LeftHand({
   nodes,
@@ -11,6 +11,8 @@ export default function LeftHand({
   buttonPress: (buttonName: string) => void;
 }) {
   const entranceAnimationFinished = useAtomValue(entranceAnimationFinishedAtom);
+
+  const setMouseOn = useSetAtom(mouseOnAtom);
 
   return (
     <group name="left_hand_center">
@@ -35,7 +37,6 @@ export default function LeftHand({
         rotation={[-0.215, 0.356, 0.101]}
       >
         <mesh
-          name="UP_button_1"
           geometry={nodes.UP_button_1.geometry}
           material={materials["Black grain leather"]}
         ></mesh>
@@ -43,6 +44,8 @@ export default function LeftHand({
           name="UP_button_2"
           geometry={nodes.UP_button_2.geometry}
           material={materials.Material}
+          onPointerOver={() => setMouseOn("PRESS")}
+          onPointerOut={() => setMouseOn("DRAG")}
         />
       </group>
       <group
@@ -54,9 +57,7 @@ export default function LeftHand({
           name="LEFT_button_1"
           geometry={nodes.LEFT_button_1.geometry}
           material={materials["Black grain leather"]}
-        >
-          
-        </mesh>
+        ></mesh>
         <mesh
           name="LEFT_button_2"
           geometry={nodes.LEFT_button_2.geometry}

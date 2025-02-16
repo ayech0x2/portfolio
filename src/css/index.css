@@ -23,6 +23,7 @@ body {
   background-color: black;
   font-family: "sfpro";
   color: rgb(252, 252, 252);
+  /* cursor: none; */
 }
 #canvas-container {
   position: fixed;

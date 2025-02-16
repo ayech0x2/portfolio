@@ -80,3 +80,10 @@ export type EntranceAnimationName =
 export interface ContainerProps {
   children: React.ReactNode;
 }
+
+export type MouseOn = "DEFAULT" | "SCROLL" | "DRAG" | "DROP" | "PRESS" | "HIDE";
+
+export interface MouseCoords {
+  x: number;
+  y: number;
+}

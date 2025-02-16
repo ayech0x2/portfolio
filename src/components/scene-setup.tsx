@@ -6,23 +6,30 @@ import {
   EffectComposer,
   Vignette,
 } from "@react-three/postprocessing";
+import { useSetAtom } from "jotai";
 import * as React from "react";
 import * as THREE from "three";
+import { mouseOnAtom } from "../atoms";
 import Lightformers from "./light-formers";
 import Lights from "./lights";
 import Particles from "./particles";
 
 export default function SceneSetup() {
+  const setMouseOn = useSetAtom(mouseOnAtom);
+
   return (
     <React.Fragment>
       <OrbitControls
         minPolarAngle={Math.PI / 4}
         maxPolarAngle={Math.PI / 1.5}
         enablePan={false}
-        minDistance={6}
-        maxDistance={10}
+        minDistance={2}
+        maxDistance={14}
         dampingFactor={0.01}
+        onStart={() => setMouseOn("DROP")}
+        onEnd={() => setMouseOn("DRAG")}
       />
+
       <Particles />
       <Lights />
       <EffectComposer>

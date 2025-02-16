@@ -1,10 +1,14 @@
 import { useGSAP } from "@gsap/react";
-import styles from "../../css/hint.module.css";
-import * as React from "react";
 import gsap from "gsap";
+import { useSetAtom } from "jotai";
+import * as React from "react";
+import { mouseOnAtom } from "../../atoms";
+import styles from "../../css/hint.module.css";
 
 export default function Hint() {
   const [hidden, setHidden] = React.useState(false);
+
+  const setMouseOn = useSetAtom(mouseOnAtom);
 
   const containerRef = React.useRef<HTMLDivElement>(null);
 
@@ -28,6 +32,7 @@ export default function Hint() {
         CONTROLS
       </span>
       <span
+      onMouseEnter={() => setMouseOn('HIDE')}
         className={[styles.hide, styles.preventSelect].join(" ")}
         onClick={() => setHidden(true)}
       >

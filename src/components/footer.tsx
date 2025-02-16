@@ -59,12 +59,20 @@ export default function Footer() {
   });
   return (
     <div ref={containerRef} className={styles.container}>
-      <div className={[text.subTitle].join(" ")}>4yech.hamza@gmail.com</div>
-      <div className={[text.subTitle].join(" ")}>Phone: +216 54 07 18 21</div>
+      <div className={[text.subTitle, text.preventSelect].join(" ")}>
+        4yech.hamza@gmail.com
+      </div>
+      <div className={[text.subTitle, text.preventSelect].join(" ")}>
+        Phone: +216 54 07 18 21
+      </div>
       {entranceAnimationFinished && (
         <div
           ref={moveAroundRef}
-          className={[styles.environement, text.subTitle].join(" ")}
+          className={[
+            styles.environement,
+            text.subTitle,
+            text.preventSelect,
+          ].join(" ")}
         >
           <EnvironementIcon />
           Now you can rotate around.
@@ -73,7 +81,11 @@ export default function Footer() {
       {!entranceAnimationFinished && (
         <div
           ref={scrolldownRef}
-          className={[text.subTitle, styles.scrollDown].join(" ")}
+          className={[
+            text.subTitle,
+            styles.scrollDown,
+            text.preventSelect,
+          ].join(" ")}
         >
           <MouseIcon />
           Scroll down
