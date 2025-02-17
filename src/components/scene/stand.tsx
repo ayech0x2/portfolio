@@ -1,8 +1,17 @@
+import { useFrame } from "@react-three/fiber";
 import { GLTFResult } from "../../types";
+import * as React from "react";
+import * as THREE from "three";
 
 export default function Stand({ nodes, materials }: GLTFResult) {
+  const standRef = React.useRef<THREE.Group>(null!);
+  useFrame((_state, delta) => {
+    if (standRef.current) {
+      standRef.current.rotation.y += delta * 0.3;
+    }
+  });
   return (
-    <group>
+    <group ref={standRef}>
       <mesh
         name="stand"
         geometry={nodes.stand.geometry}

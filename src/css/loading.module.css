@@ -1,0 +1,45 @@
+.container {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.iconContainer {
+  height: 10rem;
+  width: 10rem;
+  border-radius: 5rem;
+  border: 1px solid white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container > span {
+  font-size: 1.8rem;
+  max-width: 40rem;
+  text-align: center;
+}
+.container > span > span {
+  font-weight: 600;
+  font-style: italic;
+}
+
+.container > p {
+  text-transform: uppercase;
+  font-style: italic;
+  letter-spacing: 0.5rem;
+  font-size: 2rem;
+  margin: 0;
+}
+
+.progress {
+  position: absolute;
+  padding-right: 2rem;
+  bottom: 0;
+  right: 0;
+  font-size: 8vw;
+  line-height: 8vw;
+}

@@ -14,8 +14,8 @@ export default function Mouse({ x, y }: MouseCoords) {
   useGSAP(
     () => {
       gsap.to(mouseRef.current, {
-        x: x + 10,
-        y: y + 10,
+        x: x - 60,
+        y: y + 20,
         duration: 0.5,
       });
     },

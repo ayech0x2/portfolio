@@ -12,7 +12,6 @@
 
 * {
   box-sizing: border-box;
-  font-family: 400;
 }
 html {
   font-size: 10px;
@@ -23,7 +22,7 @@ body {
   background-color: black;
   font-family: "sfpro";
   color: rgb(252, 252, 252);
-  /* cursor: none; */
+  font-family: 400;
 }
 #canvas-container {
   position: fixed;
@@ -57,4 +56,11 @@ body {
 ::-webkit-scrollbar {
   width: 0px;
   background: transparent;
+}
+
+.stats-panel {
+  bottom: 1rem;
+  right: 1rem;
+  left: unset !important;
+  top: unset !important;
 }

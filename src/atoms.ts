@@ -4,3 +4,7 @@ import { MouseOn } from "./types";
 export const entranceAnimationFinishedAtom = atom(false);
 
 export const mouseOnAtom = atom<MouseOn>("DEFAULT");
+
+export const sceneMutedAtom = atom(false);
+
+export const loadingAtom = atom(true);

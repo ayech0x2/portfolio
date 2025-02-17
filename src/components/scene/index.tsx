@@ -1,10 +1,13 @@
 import { useGSAP } from "@gsap/react";
-import { useGLTF } from "@react-three/drei";
+import { Scroll, ScrollControls, useGLTF } from "@react-three/drei";
 import { GroupProps } from "@react-three/fiber";
 import { useAtomValue, useSetAtom } from "jotai";
 import * as React from "react";
 import * as THREE from "three";
-import { entranceAnimationFinishedAtom, mouseOnAtom } from "../../atoms";
+import {
+  entranceAnimationFinishedAtom,
+  mouseOnAtom
+} from "../../atoms";
 import useSceneAnimations from "../../hooks/use-scene-animations";
 import useSceneInteractions from "../../hooks/use-scene-interactions";
 import { GLTFResult } from "../../types";
@@ -29,8 +32,18 @@ export default function Scene(props: GroupProps) {
 
   const { handleButtonPress } = useSceneInteractions();
 
-  const { playEntranceAnimation, startWigglingGameBoy, startWigglingStand } =
+  const { startWigglingGameBoy, startWigglingStand } =
     useSceneAnimations(sceneRef);
+
+  useGSAP(
+    () => {
+      if (isReady) {
+        startWigglingGameBoy();
+        startWigglingStand();
+      }
+    },
+    { dependencies: [isReady] }
+  );
 
   React.useEffect(() => {
     if (sceneRef.current) {
@@ -43,17 +56,6 @@ export default function Scene(props: GroupProps) {
       setMouseOn("SCROLL");
     }
   }, [entranceAnimationFinished, setMouseOn]);
-
-  useGSAP(
-    () => {
-      if (isReady) {
-        playEntranceAnimation();
-        startWigglingGameBoy();
-        startWigglingStand();
-      }
-    },
-    { dependencies: [isReady] }
-  );
 
   const buttonPress = (buttonName: string) => {
     handleButtonPress(sceneRef, buttonName);
@@ -76,8 +78,39 @@ export default function Scene(props: GroupProps) {
           </group>
         </React.Fragment>
       )}
+
+      <ScrollControls
+        pages={8}
+        maxSpeed={0.1}
+        enabled={!entranceAnimationFinished}
+      >
+        <Scroll>
+          <ScrollHandler sceneRef={sceneRef} isReady={isReady} />
+        </Scroll>
+      </ScrollControls>
     </group>
   );
 }
+
+const ScrollHandler = ({
+  sceneRef,
+  isReady,
+}: {
+  sceneRef: React.RefObject<THREE.Group>;
+  isReady: boolean;
+}) => {
+  const { playEntranceAnimation } = useSceneAnimations(sceneRef);
+
+  useGSAP(
+    () => {
+      if (isReady) {
+        playEntranceAnimation();
+      }
+    },
+    { dependencies: [isReady] }
+  );
+
+  return <group />;
+};
 
 useGLTF.preload("/scene.glb");

@@ -5,15 +5,6 @@ export default function Cameras() {
   return (
     <React.Fragment>
       <PerspectiveCamera
-        name="DEFAULT_CAMERA"
-        makeDefault={false}
-        far={1000}
-        near={0.1}
-        fov={20.862}
-        position={[1.63, 0.619, -0.173]}
-        rotation={[0.024, 1.271, -0.023]}
-      />
-      <PerspectiveCamera
         name="FRONT_CAMERA"
         makeDefault={true}
         far={1000}
@@ -47,15 +38,6 @@ export default function Cameras() {
         fov={22.895}
         position={[0.292, 0.221, -6.114]}
         rotation={[-Math.PI, 0.022, -Math.PI]}
-      />
-      <PerspectiveCamera
-        name="SCREWS_CAMERA"
-        makeDefault={false}
-        far={1000}
-        near={0.1}
-        fov={22.895}
-        position={[0.879, -0.632, -1.214]}
-        rotation={[2.594, -0.101, 3.08]}
       />
     </React.Fragment>
   );

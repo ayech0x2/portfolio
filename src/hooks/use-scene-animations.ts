@@ -1,6 +1,10 @@
+import { useScroll } from "@react-three/drei";
+import { useFrame } from "@react-three/fiber";
 import gsap from "gsap";
+import { useAtom, useSetAtom } from "jotai";
 import * as React from "react";
 import * as THREE from "three";
+import { entranceAnimationFinishedAtom, mouseOnAtom } from "../atoms";
 import useGameboyRotationAnimation from "./animations/use-gameboy-rotation-animation";
 import useLeftHandAnimation from "./animations/use-left-hand-animation";
 import useRightHandAnimation from "./animations/use-right-hand-animation";
@@ -9,17 +13,39 @@ import useScreenPartTwoAnimation from "./animations/use-screen-part-two-animatio
 import useScrewsHandAnimation from "./animations/use-screws-animations";
 import useStandAnimation from "./animations/use-stand-animation";
 import useSceneHelpers from "./use-scene-helpers";
-import { useSetAtom } from "jotai";
-import { entranceAnimationFinishedAtom, mouseOnAtom } from "../atoms";
 
 export default function useSceneAnimations(
   sceneRef: React.RefObject<THREE.Group>
 ) {
-  const { get3dObjectByName } = useSceneHelpers();
+  const scroll = useScroll();
 
-  const setEntranceAnimationFinished = useSetAtom(
+  const [entranceAnimationFinished, setEntranceAnimationFinished] = useAtom(
     entranceAnimationFinishedAtom
   );
+
+  const timelineRef = React.useRef(
+    gsap.timeline({
+      paused: true,
+      onComplete: function () {
+        setEntranceAnimationFinished(true);
+        setMouseOn("DRAG");
+        this.kill();
+      },
+    })
+  );
+
+  useFrame(() => {
+    if (scroll && scroll.offset) {
+      if (!entranceAnimationFinished)
+        timelineRef.current.progress(scroll.offset);
+      else if (scroll.el.scrollTop !== 0 || scroll.fixed.scrollTop !== 0) {
+        scroll.el.scrollTop = 0;
+        scroll.fixed.scrollTop = 0;
+      }
+    }
+  });
+
+  const { get3dObjectByName } = useSceneHelpers();
 
   const setMouseOn = useSetAtom(mouseOnAtom);
 
@@ -62,30 +88,14 @@ export default function useSceneAnimations(
   };
 
   const playEntranceAnimation = () => {
-    const timelineAnimation = gsap.timeline({
-      scrollTrigger: {
-        trigger: "#scroll-trigger",
-        scrub: 1,
-        start: "top top",
-        end: "bottom bottom",
-      },
-      onComplete: function () {
-        setEntranceAnimationFinished(true);
-        setMouseOn("DRAG");
-        this.kill();
-        const element = document.getElementById("scroll-trigger");
-        if (element) element.style.height = "0px";
-      },
-    });
-
-    timelineAnimation.add(standAnimation() as gsap.core.Tween);
-    timelineAnimation.add(screenPartTwoAnimation() as gsap.core.Tween);
-    timelineAnimation.add(screenPartOneAnimation() as gsap.core.Tween);
-    timelineAnimation.add(rightHandAnimation() as gsap.core.Tween);
-    timelineAnimation.add(leftHandAnimation() as gsap.core.Tween);
-    timelineAnimation.add(gameboyAnimation() as gsap.core.Tween);
-    timelineAnimation.add(screwsAnimation() as gsap.core.Tween);
-    timelineAnimation.add(gameboyAnimation("BACKWARD") as gsap.core.Tween);
+    timelineRef.current.add(standAnimation() as gsap.core.Tween);
+    timelineRef.current.add(screenPartTwoAnimation() as gsap.core.Tween);
+    timelineRef.current.add(screenPartOneAnimation() as gsap.core.Tween);
+    timelineRef.current.add(rightHandAnimation() as gsap.core.Tween);
+    timelineRef.current.add(leftHandAnimation() as gsap.core.Tween);
+    timelineRef.current.add(gameboyAnimation() as gsap.core.Tween);
+    timelineRef.current.add(screwsAnimation() as gsap.core.Tween);
+    timelineRef.current.add(gameboyAnimation("BACKWARD") as gsap.core.Tween);
   };
 
   return { startWigglingGameBoy, playEntranceAnimation, startWigglingStand };
