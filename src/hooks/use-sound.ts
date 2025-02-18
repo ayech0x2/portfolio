@@ -1,22 +1,32 @@
-import { Howl } from "howler";
+import { useAtomValue } from "jotai";
+import * as React from "react";
+import { bgAudioAtom } from "../atoms";
 
 export default function useSound() {
-  const playSound = (delay = 500) => {
-    const sound = new Howl({
-      src: ["sound.mp3"],
-    });
-    setTimeout(() => {
-      sound.play();
-    }, delay);
-  };
+  const [muted, setMuted] = React.useState(false);
+
+  const bgAudio = useAtomValue(bgAudioAtom);
 
   const playBackgroundMusic = () => {
-    const sound = new Howl({
-      src: ["background_music.mp3"],
-      volume: 0.5,
-    });
-
-    sound.play();
+    bgAudio.volume = 0.5;
+    bgAudio.loop = true;
+    bgAudio.play();
   };
-  return { playSound, playBackgroundMusic };
+
+  const muteBackgroundMusic = () => {
+    bgAudio.muted = true;
+    setMuted(true);
+  };
+
+  const unMuteBackgroundMusic = () => {
+    bgAudio.muted = false;
+    setMuted(false);
+  };
+
+  return {
+    muted,
+    playBackgroundMusic,
+    muteBackgroundMusic,
+    unMuteBackgroundMusic,
+  };
 }

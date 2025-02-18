@@ -2,7 +2,7 @@ import { Canvas } from "@react-three/fiber";
 import { useAtomValue } from "jotai";
 import * as React from "react";
 import * as THREE from "three";
-import { loadingAtom } from "./atoms";
+import { entranceAnimationFinishedAtom, loadingAtom } from "./atoms";
 import Footer from "./components/footer";
 import Header from "./components/header";
 import LoadingOverlay from "./components/loading-overlay";
@@ -12,6 +12,8 @@ import Utils from "./components/utils";
 
 function App() {
   const loading = useAtomValue(loadingAtom);
+
+  const entranceAnimationFinished = useAtomValue(entranceAnimationFinishedAtom);
 
   const [mouseCoords, setMouseCoords] = React.useState({ x: 0, y: 0 });
 
@@ -33,7 +35,7 @@ function App() {
 
   return (
     <React.Fragment>
-      <Utils />
+      {entranceAnimationFinished && <Utils />}
       <Mouse {...mouseCoords} />
       <Header />
       <Footer />

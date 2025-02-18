@@ -5,6 +5,6 @@ export const entranceAnimationFinishedAtom = atom(false);
 
 export const mouseOnAtom = atom<MouseOn>("DEFAULT");
 
-export const sceneMutedAtom = atom(false);
-
 export const loadingAtom = atom(true);
+
+export const bgAudioAtom = atom(new Audio("bg_music.mp3"));

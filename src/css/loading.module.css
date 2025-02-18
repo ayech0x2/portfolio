@@ -43,3 +43,35 @@
   font-size: 8vw;
   line-height: 8vw;
 }
+
+.button {
+  position: relative;
+  border: 1px solid white;
+  background: transparent;
+  font-size: 1.6rem;
+  color: white;
+  cursor: pointer;
+  padding: 1rem 2rem;
+  transition: all 0.2s;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.button::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 100%;
+  background-color: white;
+  transition: all 0.2s;
+}
+
+.button:hover {
+  color: black;
+}
+.button:hover::after {
+  width: 100%;
+}

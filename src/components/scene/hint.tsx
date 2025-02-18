@@ -32,7 +32,8 @@ export default function Hint() {
         CONTROLS
       </span>
       <span
-      onMouseEnter={() => setMouseOn('HIDE')}
+        onMouseEnter={() => setMouseOn("HIDE")}
+        onMouseLeave={() => setMouseOn("DRAG")}
         className={[styles.hide, styles.preventSelect].join(" ")}
         onClick={() => setHidden(true)}
       >
