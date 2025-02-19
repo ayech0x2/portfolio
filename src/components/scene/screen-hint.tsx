@@ -1,9 +1,8 @@
-import { useGSAP } from "@gsap/react";
-import gsap from "gsap";
 import { useSetAtom } from "jotai";
 import * as React from "react";
 import { mouseOnAtom } from "../../atoms";
 import styles from "../../css/screen-hint.module.css";
+import useHintAnimation from "../../hooks/animations/use-hint-animation";
 
 export default function ScreenHint() {
   const [hidden, setHidden] = React.useState(false);
@@ -12,32 +11,10 @@ export default function ScreenHint() {
 
   const containerRef = React.useRef<HTMLDivElement>(null);
 
-  React.useEffect(() => {
-    const hide = () => {
-      gsap.to(containerRef.current, {
-        x: 20,
-        opacity: 0,
-        duration: 1,
-        onComplete: () => setHidden(true),
-      });
-    };
-    const timeout = setTimeout(hide, 5000);
-
-    return () => clearTimeout(timeout);
-  });
-
-  useGSAP(() => {
-    gsap.fromTo(
-      containerRef.current,
-      {
-        opacity: 0,
-        x: 50,
-      },
-      { x: 0, opacity: 1 }
-    );
-  });
+  useHintAnimation(containerRef, () => setHidden(true));
 
   if (hidden) return null;
+
   return (
     <div ref={containerRef} className={styles.container}>
       <div className={styles.circle} />
