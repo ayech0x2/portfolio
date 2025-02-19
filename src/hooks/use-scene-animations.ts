@@ -88,7 +88,6 @@ export default function useSceneAnimations(
   };
 
   const playEntranceAnimation = () => {
-    return;
     timelineRef.current.add(standAnimation() as gsap.core.Tween);
     timelineRef.current.add(screenPartTwoAnimation() as gsap.core.Tween);
     timelineRef.current.add(screenPartOneAnimation() as gsap.core.Tween);

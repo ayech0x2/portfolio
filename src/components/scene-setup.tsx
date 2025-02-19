@@ -1,5 +1,5 @@
 import { Environment, OrbitControls, Stats } from "@react-three/drei";
-import { useThree } from "@react-three/fiber";
+import { useFrame, useThree } from "@react-three/fiber";
 import {
   Bloom,
   ChromaticAberration,
@@ -12,6 +12,7 @@ import { useAtom, useAtomValue, useSetAtom } from "jotai";
 import * as React from "react";
 import { isMobile } from "react-device-detect";
 import * as THREE from "three";
+import { OrbitControls as OrbitControlsType } from "three-stdlib";
 import {
   cameraZoomAtom,
   entranceAnimationFinishedAtom,
@@ -24,6 +25,8 @@ import Particles from "./particles";
 
 function SceneSetup() {
   const { camera } = useThree();
+
+  const orbitControlRef = React.useRef<OrbitControlsType>(null);
 
   const [resetViewRequest, setResetViewRequest] = useAtom(resetViewRequestAtom);
 
@@ -61,16 +64,24 @@ function SceneSetup() {
     }
   }, [camera, resetViewRequest, setCameraZoom, setResetViewRequest]);
 
+  useFrame(() => {
+    if (orbitControlRef.current) {
+      orbitControlRef.current.target.set(0, 0.35, 0);
+      orbitControlRef.current.update();
+    }
+  });
+
   return (
     <React.Fragment>
       <OrbitControls
+        ref={orbitControlRef}
         enabled={entranceAnimationFinished}
         minPolarAngle={Math.PI / 4}
         maxPolarAngle={Math.PI / 1.5}
         enablePan={false}
         enableRotate={true}
         enableZoom={true}
-        minDistance={2}
+        minDistance={3}
         maxDistance={11}
         dampingFactor={isMobile ? 0.05 : 0.01}
         zoomSpeed={0.1}

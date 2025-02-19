@@ -51,7 +51,7 @@ function Utils() {
   };
 
   const handleZoomOut = () => {
-    if (cameraZoom > 0.9) setCameraZoom(cameraZoom - 0.1);
+    if (cameraZoom > 1) setCameraZoom(cameraZoom - 0.1);
   };
 
   const handleResetView = () => {
