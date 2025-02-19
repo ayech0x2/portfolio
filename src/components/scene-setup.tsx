@@ -2,10 +2,8 @@ import { Environment, OrbitControls, Stats } from "@react-three/drei";
 import { useFrame, useThree } from "@react-three/fiber";
 import {
   Bloom,
-  ChromaticAberration,
-  DepthOfField,
   EffectComposer,
-  Vignette,
+  HueSaturation,
 } from "@react-three/postprocessing";
 import gsap from "gsap";
 import { useAtom, useAtomValue, useSetAtom } from "jotai";
@@ -99,17 +97,11 @@ function SceneSetup() {
       {!isMobile && (
         <EffectComposer>
           <Bloom
-            intensity={0.1}
+            intensity={0.2}
             luminanceThreshold={0.4}
             luminanceSmoothing={0.05}
           />
-          <DepthOfField focusDistance={1} focalLength={0.1} bokehScale={0.1} />
-          <Vignette eskil={false} offset={0.1} darkness={0.8} />
-          <ChromaticAberration
-            offset={new THREE.Vector2(0.0006, 0.0006)}
-            radialModulation={false}
-            modulationOffset={0}
-          />
+          <HueSaturation hue={0} saturation={0.3} />
         </EffectComposer>
       )}
       <Environment resolution={1024}>
