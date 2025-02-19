@@ -13,14 +13,55 @@ import useScreenPartTwoAnimation from "./animations/use-screen-part-two-animatio
 import useScrewsHandAnimation from "./animations/use-screws-animations";
 import useStandAnimation from "./animations/use-stand-animation";
 import useSceneHelpers from "./use-scene-helpers";
+import { useGSAP } from "@gsap/react";
 
 export default function useSceneAnimations(
-  sceneRef: React.RefObject<THREE.Group>
+  sceneRef: React.RefObject<THREE.Group>,
+  isReady: boolean
 ) {
   const scroll = useScroll();
 
+  const { get3dObjectByName } = useSceneHelpers();
+
+  const setMouseOn = useSetAtom(mouseOnAtom);
+
+  const { animation: rightHandAnimation } = useRightHandAnimation(sceneRef);
+  const { animation: leftHandAnimation } = useLeftHandAnimation(sceneRef);
+  const { animation: screenPartOneAnimation } =
+    useScreenPartOneAnimation(sceneRef);
+  const { animation: screenPartTwoAnimation } =
+    useScreenPartTwoAnimation(sceneRef);
+  const { animation: screwsAnimation } = useScrewsHandAnimation(sceneRef);
+  const { animation: gameboyAnimation } = useGameboyRotationAnimation(sceneRef);
+  const { animation: standAnimation } = useStandAnimation(sceneRef);
+
   const [entranceAnimationFinished, setEntranceAnimationFinished] = useAtom(
     entranceAnimationFinishedAtom
+  );
+
+  React.useEffect(() => {
+    if (!entranceAnimationFinished) {
+      setMouseOn("SCROLL");
+    }
+  }, [entranceAnimationFinished, setMouseOn]);
+
+  useGSAP(
+    () => {
+      if (isReady) {
+        startWigglingGameBoy();
+        startWigglingStand();
+      }
+    },
+    { dependencies: [isReady] }
+  );
+
+  useGSAP(
+    () => {
+      if (isReady) {
+        playEntranceAnimation();
+      }
+    },
+    { dependencies: [isReady] }
   );
 
   const timelineRef = React.useRef(
@@ -44,20 +85,6 @@ export default function useSceneAnimations(
       }
     }
   });
-
-  const { get3dObjectByName } = useSceneHelpers();
-
-  const setMouseOn = useSetAtom(mouseOnAtom);
-
-  const { animation: rightHandAnimation } = useRightHandAnimation(sceneRef);
-  const { animation: leftHandAnimation } = useLeftHandAnimation(sceneRef);
-  const { animation: screenPartOneAnimation } =
-    useScreenPartOneAnimation(sceneRef);
-  const { animation: screenPartTwoAnimation } =
-    useScreenPartTwoAnimation(sceneRef);
-  const { animation: screwsAnimation } = useScrewsHandAnimation(sceneRef);
-  const { animation: gameboyAnimation } = useGameboyRotationAnimation(sceneRef);
-  const { animation: standAnimation } = useStandAnimation(sceneRef);
 
   const startWigglingGameBoy = () => {
     const gameboy = get3dObjectByName(sceneRef, "gameboy");
@@ -88,7 +115,6 @@ export default function useSceneAnimations(
   };
 
   const playEntranceAnimation = () => {
-    return;
     timelineRef.current.add(standAnimation() as gsap.core.Tween);
     timelineRef.current.add(screenPartTwoAnimation() as gsap.core.Tween);
     timelineRef.current.add(screenPartOneAnimation() as gsap.core.Tween);
