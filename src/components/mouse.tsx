@@ -6,7 +6,7 @@ import { mouseOnAtom } from "../atoms";
 import styles from "../css/mouse.module.css";
 import { MouseCoords } from "../types";
 
-export default function Mouse({ x, y }: MouseCoords) {
+function Mouse({ x, y }: MouseCoords) {
   const mouseRef = React.useRef<HTMLDivElement>(null);
 
   const mouseOn = useAtomValue(mouseOnAtom);
@@ -21,23 +21,6 @@ export default function Mouse({ x, y }: MouseCoords) {
     },
     { dependencies: [x, y] }
   );
-
-  // useGSAP(
-  //   () => {
-  //     if (mouseOn === "PRESS") {
-  //       gsap.to(mouseRef.current, {
-  //         height: "1rem",
-  //         width: "1rem",
-  //       });
-  //     } else {
-  //       gsap.to(mouseRef.current, {
-  //         height: "7rem",
-  //         width: "7rem",
-  //       });
-  //     }
-  //   },
-  //   { dependencies: [mouseOn] }
-  // );
 
   const renderText = () => {
     switch (mouseOn) {
@@ -61,3 +44,5 @@ export default function Mouse({ x, y }: MouseCoords) {
     </div>
   );
 }
+
+export default React.memo(Mouse);

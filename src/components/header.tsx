@@ -1,10 +1,10 @@
+import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import * as React from "react";
 import styles from "../css/header.module.css";
 import text from "../css/text.module.css";
-import { useGSAP } from "@gsap/react";
 
-export default function Header() {
+function Header() {
   const containerRef = React.useRef<HTMLDivElement>(null);
 
   useGSAP(() => {
@@ -48,3 +48,5 @@ export default function Header() {
     </div>
   );
 }
+
+export default React.memo(Header);

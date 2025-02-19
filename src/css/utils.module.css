@@ -8,7 +8,7 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 2rem;
+  gap: 1rem;
 }
 
 .child {
@@ -17,12 +17,12 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
+  gap: 0.5rem;
   cursor: pointer;
 }
 
 .child > span {
-  font-size: 1.2rem;
+  font-size: 1rem;
   -webkit-user-select: none;
   -ms-user-select: none;
   user-select: none;
@@ -42,4 +42,26 @@
   justify-content: center;
   align-items: center;
   font-size: 1.6rem;
+}
+
+@media (min-width: 992px) {
+  .container {
+    gap: 2rem;
+  }
+  .child {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    cursor: pointer;
+  }
+
+  .child > span {
+    font-size: 1.2rem;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
 }

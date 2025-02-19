@@ -1,11 +1,19 @@
 import { useAtomValue } from "jotai";
 import * as React from "react";
-import { bgAudioAtom } from "../atoms";
+import { bgAudioAtom, clickAudioAtom } from "../atoms";
 
 export default function useSound() {
   const [muted, setMuted] = React.useState(false);
 
   const bgAudio = useAtomValue(bgAudioAtom);
+
+  const clickAudio = useAtomValue(clickAudioAtom);
+
+  const playSound = (delay = 500) => {
+    setTimeout(() => {
+      clickAudio.play();
+    }, delay);
+  };
 
   const playBackgroundMusic = () => {
     bgAudio.volume = 0.5;
@@ -25,6 +33,7 @@ export default function useSound() {
 
   return {
     muted,
+    playSound,
     playBackgroundMusic,
     muteBackgroundMusic,
     unMuteBackgroundMusic,

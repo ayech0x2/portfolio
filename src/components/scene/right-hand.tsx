@@ -76,6 +76,7 @@ export default function RightHand({
         name="A_button"
         position={[1.083, 0.627, -0.339]}
         rotation={[-0.215, 0.356, 0.101]}
+        onPointerDown={() => buttonPress("A_button")}
         onClick={() => buttonPress("A_button")}
       >
         <mesh

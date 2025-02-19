@@ -5,6 +5,7 @@
   justify-content: center;
   flex-direction: column;
   gap: 2rem;
+  padding: 2rem;
 }
 
 .iconContainer {
@@ -40,8 +41,7 @@
   padding-right: 2rem;
   bottom: 0;
   right: 0;
-  font-size: 8vw;
-  line-height: 8vw;
+  font-size: 10rem;
 }
 
 .button {
@@ -74,4 +74,10 @@
 }
 .button:hover::after {
   width: 100%;
+}
+
+@media (min-width: 992px) {
+  .progress {
+    font-size: 20rem;
+  }
 }

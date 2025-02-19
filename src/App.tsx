@@ -5,13 +5,17 @@ import * as THREE from "three";
 import { entranceAnimationFinishedAtom, loadingAtom } from "./atoms";
 import Footer from "./components/footer";
 import Header from "./components/header";
+import LandscapeMode from "./components/landscape-mode";
 import LoadingOverlay from "./components/loading-overlay";
 import Mouse from "./components/mouse";
 import Scene from "./components/scene";
 import Utils from "./components/utils";
+import useScreenOrientation from "./hooks/use-screen-orientation";
 
 function App() {
   const loading = useAtomValue(loadingAtom);
+
+  const portrait = useScreenOrientation();
 
   const entranceAnimationFinished = useAtomValue(entranceAnimationFinishedAtom);
 
@@ -32,6 +36,8 @@ function App() {
   }, [mouseHandler]);
 
   if (loading) return <LoadingOverlay />;
+
+  if (!loading && portrait) return <LandscapeMode />;
 
   return (
     <React.Fragment>

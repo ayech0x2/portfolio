@@ -4,10 +4,7 @@ import { GroupProps } from "@react-three/fiber";
 import { useAtomValue, useSetAtom } from "jotai";
 import * as React from "react";
 import * as THREE from "three";
-import {
-  entranceAnimationFinishedAtom,
-  mouseOnAtom
-} from "../../atoms";
+import { entranceAnimationFinishedAtom, mouseOnAtom } from "../../atoms";
 import useSceneAnimations from "../../hooks/use-scene-animations";
 import useSceneInteractions from "../../hooks/use-scene-interactions";
 import { GLTFResult } from "../../types";
@@ -19,7 +16,7 @@ import Screen from "./screen";
 import Screws from "./screws";
 import Stand from "./stand";
 
-export default function Scene(props: GroupProps) {
+function Scene(props: GroupProps) {
   const [isReady, setIsReady] = React.useState(false);
 
   const setMouseOn = useSetAtom(mouseOnAtom);
@@ -78,7 +75,6 @@ export default function Scene(props: GroupProps) {
           </group>
         </React.Fragment>
       )}
-
       <ScrollControls
         pages={8}
         maxSpeed={0.1}
@@ -114,3 +110,5 @@ const ScrollHandler = ({
 };
 
 useGLTF.preload("/scene.glb");
+
+export default React.memo(Scene);

@@ -5,8 +5,8 @@ import { useSetAtom } from "jotai";
 import * as React from "react";
 import { loadingAtom } from "../atoms";
 import styles from "../css/loading.module.css";
-import EnvironementIcon from "./icons/environement-icon";
 import useSound from "../hooks/use-sound";
+import EnvironementIcon from "./icons/environement-icon";
 
 export default function LoadingOverlay() {
   const { progress } = useProgress();

@@ -16,7 +16,7 @@ const phrases = [
   "Lighting and shadows are dynamically calculated.",
   "Thanks for visiting my portfolio!",
 ];
-export default function Footer() {
+function Footer() {
   const [helpContent, setHelpContent] = React.useState<string>(phrases[0]);
 
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -43,7 +43,7 @@ export default function Footer() {
     gsap.fromTo(
       containerRef.current,
       {
-        y: 100,
+        y: -100,
         opacity: 0,
       },
       {
@@ -72,3 +72,5 @@ export default function Footer() {
     </div>
   );
 }
+
+export default React.memo(Footer);
