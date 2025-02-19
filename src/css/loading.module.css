@@ -17,6 +17,10 @@
   justify-content: center;
   align-items: center;
 }
+.iconContainer svg {
+  height: 4rem;
+  width: 3rem;
+}
 
 .container > span {
   font-size: 1.8rem;

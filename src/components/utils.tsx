@@ -12,6 +12,7 @@ import MuteIcon from "./icons/mute-icon";
 import UnmuteIcon from "./icons/unmute-icon";
 import ZoomInIcon from "./icons/zoom-in-icon";
 import ZoomOutIcon from "./icons/zoom-out-icon";
+import { isMobile } from "react-device-detect";
 
 function Utils() {
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -47,7 +48,7 @@ function Utils() {
   };
 
   const handleZoomIn = () => {
-    if (cameraZoom < 1.9) setCameraZoom(cameraZoom + 0.1);
+    if (cameraZoom < (isMobile ? 2.5 : 1.9)) setCameraZoom(cameraZoom + 0.1);
   };
 
   const handleZoomOut = () => {

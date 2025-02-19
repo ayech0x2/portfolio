@@ -82,7 +82,7 @@ function SceneSetup() {
         enableRotate={true}
         enableZoom={true}
         minDistance={3}
-        maxDistance={11}
+        maxDistance={10}
         dampingFactor={isMobile ? 0.05 : 0.01}
         zoomSpeed={0.1}
         onStart={() => setMouseOn("DROP")}
