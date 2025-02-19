@@ -1,11 +1,9 @@
-import { useGSAP } from "@gsap/react";
 import { Scroll, ScrollControls, useGLTF } from "@react-three/drei";
 import { GroupProps } from "@react-three/fiber";
-import { useAtomValue, useSetAtom } from "jotai";
+import { useAtomValue } from "jotai";
 import * as React from "react";
 import * as THREE from "three";
-import { entranceAnimationFinishedAtom, mouseOnAtom } from "../../atoms";
-import useSceneAnimations from "../../hooks/use-scene-animations";
+import { entranceAnimationFinishedAtom } from "../../atoms";
 import useSceneInteractions from "../../hooks/use-scene-interactions";
 import { GLTFResult } from "../../types";
 import SceneSetup from "../scene-setup";
@@ -14,12 +12,11 @@ import LeftHand from "./left-hand";
 import RightHand from "./right-hand";
 import Screen from "./screen";
 import Screws from "./screws";
+import ScrollHandler from "./scroll-handler";
 import Stand from "./stand";
 
 function Scene(props: GroupProps) {
   const [isReady, setIsReady] = React.useState(false);
-
-  const setMouseOn = useSetAtom(mouseOnAtom);
 
   const entranceAnimationFinished = useAtomValue(entranceAnimationFinishedAtom);
 
@@ -27,36 +24,13 @@ function Scene(props: GroupProps) {
 
   const gLTFResult = useGLTF("/scene.glb") as unknown as GLTFResult;
 
-  const { handleButtonPress } = useSceneInteractions();
-
-  const { startWigglingGameBoy, startWigglingStand } =
-    useSceneAnimations(sceneRef);
-
-  useGSAP(
-    () => {
-      if (isReady) {
-        startWigglingGameBoy();
-        startWigglingStand();
-      }
-    },
-    { dependencies: [isReady] }
-  );
+  const { handleButtonPress } = useSceneInteractions(sceneRef);
 
   React.useEffect(() => {
     if (sceneRef.current) {
       setIsReady(true);
     }
   }, []);
-
-  React.useEffect(() => {
-    if (!entranceAnimationFinished) {
-      setMouseOn("SCROLL");
-    }
-  }, [entranceAnimationFinished, setMouseOn]);
-
-  const buttonPress = (buttonName: string) => {
-    handleButtonPress(sceneRef, buttonName);
-  };
 
   return (
     <group {...props} dispose={null} ref={sceneRef}>
@@ -65,9 +39,9 @@ function Scene(props: GroupProps) {
         <React.Fragment>
           <SceneSetup />
           <group name="gameboy">
-            <LeftHand buttonPress={buttonPress} {...gLTFResult} />
+            <LeftHand buttonPress={handleButtonPress} {...gLTFResult} />
             <Screen {...gLTFResult} />
-            <RightHand buttonPress={buttonPress} {...gLTFResult} />
+            <RightHand buttonPress={handleButtonPress} {...gLTFResult} />
             <Screws {...gLTFResult} />
           </group>
           <group name="stand_container">
@@ -88,27 +62,6 @@ function Scene(props: GroupProps) {
   );
 }
 
-const ScrollHandler = ({
-  sceneRef,
-  isReady,
-}: {
-  sceneRef: React.RefObject<THREE.Group>;
-  isReady: boolean;
-}) => {
-  const { playEntranceAnimation } = useSceneAnimations(sceneRef);
-
-  useGSAP(
-    () => {
-      if (isReady) {
-        playEntranceAnimation();
-      }
-    },
-    { dependencies: [isReady] }
-  );
-
-  return <group />;
-};
+export default React.memo(Scene);
 
 useGLTF.preload("/scene.glb");
-
-export default React.memo(Scene);

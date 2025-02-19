@@ -1,11 +1,14 @@
+import { Html, useTexture } from "@react-three/drei";
 import { useAtomValue } from "jotai";
 import { entranceAnimationFinishedAtom } from "../../atoms";
 import { GLTFResult } from "../../types";
-import { Html } from "@react-three/drei";
 import ScreenHint from "./screen-hint";
 
 export default function Screen({ nodes, materials }: GLTFResult) {
   const entranceAnimationFinished = useAtomValue(entranceAnimationFinishedAtom);
+  const texture = useTexture("screens/home.jpg");
+  texture.flipY = false;
+
   return (
     <group name="full_screen">
       <group name="screen_part_one">
@@ -65,6 +68,7 @@ export default function Screen({ nodes, materials }: GLTFResult) {
               <ScreenHint />
             </Html>
           )}
+          <meshStandardMaterial map={texture} />
         </mesh>
 
         <mesh
@@ -85,7 +89,7 @@ export default function Screen({ nodes, materials }: GLTFResult) {
             roughness={0}
             metalness={1}
             transparent
-            opacity={0.2}
+            opacity={0.1}
           />
         </mesh>
       </group>
