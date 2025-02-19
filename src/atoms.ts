@@ -21,3 +21,9 @@ export const loadingAtom = atom(true);
 export const bgAudioAtom = atom(new Audio("bg_music.mp3"));
 
 export const clickAudioAtom = atom(new Audio("sound.mp3"));
+
+export const xAtom = atom(0);
+
+export const yAtom = atom(0);
+
+export const axisAtom = atom<"HORIZONTAL" | "VERTICAL">("HORIZONTAL");

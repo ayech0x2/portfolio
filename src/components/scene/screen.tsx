@@ -1,13 +1,15 @@
-import { Html, useTexture } from "@react-three/drei";
+import { Html } from "@react-three/drei";
 import { useAtomValue } from "jotai";
+import { Color } from "three";
 import { entranceAnimationFinishedAtom } from "../../atoms";
+import useScreenTexture from "../../hooks/use-screen-texture";
 import { GLTFResult } from "../../types";
 import ScreenHint from "./screen-hint";
 
 export default function Screen({ nodes, materials }: GLTFResult) {
   const entranceAnimationFinished = useAtomValue(entranceAnimationFinishedAtom);
-  const texture = useTexture("screens/home.jpg");
-  texture.flipY = false;
+
+  const texture = useScreenTexture();
 
   return (
     <group name="full_screen">
@@ -57,6 +59,13 @@ export default function Screen({ nodes, materials }: GLTFResult) {
           position={[0.068, 0.358, 0.084]}
           rotation={[1.391, 0.095, -0.357]}
         >
+          <meshStandardMaterial
+            map={texture()}
+            color={new Color(1.5, 1.5, 1.5)}
+            emissiveMap={texture()}
+            emissive={"white"}
+            emissiveIntensity={0}
+          />
           {entranceAnimationFinished && (
             <Html
               center
@@ -68,7 +77,6 @@ export default function Screen({ nodes, materials }: GLTFResult) {
               <ScreenHint />
             </Html>
           )}
-          <meshStandardMaterial map={texture} />
         </mesh>
 
         <mesh
@@ -87,7 +95,7 @@ export default function Screen({ nodes, materials }: GLTFResult) {
         >
           <meshStandardMaterial
             roughness={0}
-            metalness={1}
+            metalness={0.8}
             transparent
             opacity={0.1}
           />

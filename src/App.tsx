@@ -1,7 +1,6 @@
 import { Canvas } from "@react-three/fiber";
 import { useAtomValue } from "jotai";
 import * as React from "react";
-import * as THREE from "three";
 import { entranceAnimationFinishedAtom, loadingAtom } from "./atoms";
 import Footer from "./components/footer";
 import Header from "./components/header";
@@ -46,13 +45,7 @@ function App() {
       <Header />
       <Footer />
       <div id="canvas-container">
-        <Canvas
-          ref={canvasRef}
-          gl={{
-            toneMapping: THREE.ACESFilmicToneMapping,
-            toneMappingExposure: 1.2,
-          }}
-        >
+        <Canvas ref={canvasRef}>
           <Scene />
         </Canvas>
       </div>

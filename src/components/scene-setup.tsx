@@ -94,16 +94,14 @@ function SceneSetup() {
       <Stats className="stats-panel" />
       <Particles />
       <Lights />
-      {!isMobile && (
-        <EffectComposer>
-          <Bloom
-            intensity={0.2}
-            luminanceThreshold={0.4}
-            luminanceSmoothing={0.05}
-          />
-          <HueSaturation hue={0} saturation={0.3} />
-        </EffectComposer>
-      )}
+      <EffectComposer>
+        <Bloom
+          intensity={0.2}
+          luminanceThreshold={0.4}
+          luminanceSmoothing={0.05}
+        />
+        <HueSaturation hue={0} saturation={0.35} />
+      </EffectComposer>
       <Environment resolution={1024}>
         <Lightformers />
       </Environment>

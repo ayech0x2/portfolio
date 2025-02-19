@@ -24,7 +24,7 @@ function Scene(props: GroupProps) {
 
   const gLTFResult = useGLTF("/scene.glb") as unknown as GLTFResult;
 
-  const { handleButtonPress } = useSceneInteractions(sceneRef);
+  const { buttons, direction } = useSceneInteractions(sceneRef);
 
   React.useEffect(() => {
     if (sceneRef.current) {
@@ -39,9 +39,9 @@ function Scene(props: GroupProps) {
         <React.Fragment>
           <SceneSetup />
           <group name="gameboy">
-            <LeftHand buttonPress={handleButtonPress} {...gLTFResult} />
+            <LeftHand {...direction} {...gLTFResult} />
             <Screen {...gLTFResult} />
-            <RightHand buttonPress={handleButtonPress} {...gLTFResult} />
+            <RightHand {...buttons} {...gLTFResult} />
             <Screws {...gLTFResult} />
           </group>
           <group name="stand_container">
