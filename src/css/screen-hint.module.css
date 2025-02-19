@@ -1,0 +1,59 @@
+.container {
+  width: 400px;
+}
+.circle {
+  height: 260px;
+  width: 400px;
+  border: 1px solid white;
+  opacity: 0.2;
+}
+
+.line {
+  position: absolute;
+  left: -60px;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  height: 1px;
+  width: 60px;
+  background: white;
+  opacity: 0.2;
+}
+
+.hint {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  height: 30px;
+  margin: auto;
+  left: -60px;
+  font-size: 1.2rem;
+}
+.hide {
+  bottom: -25px;
+  width: 44px;
+  border: 1px solid white;
+  left: 0;
+  right: 0;
+  margin: auto;
+  font-size: 1.2rem;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.preventSelect {
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.helper {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  text-align: center;
+  padding: 6rem;
+  font-size: 1.6rem;
+}

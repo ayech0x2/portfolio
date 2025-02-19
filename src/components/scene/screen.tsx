@@ -1,8 +1,11 @@
-import { Html } from "@react-three/drei";
+import { useAtomValue } from "jotai";
+import { entranceAnimationFinishedAtom } from "../../atoms";
 import { GLTFResult } from "../../types";
-import NintendoApp from "../nintendo-app";
+import { Html } from "@react-three/drei";
+import ScreenHint from "./screen-hint";
 
 export default function Screen({ nodes, materials }: GLTFResult) {
+  const entranceAnimationFinished = useAtomValue(entranceAnimationFinishedAtom);
   return (
     <group name="full_screen">
       <group name="screen_part_one">
@@ -51,26 +54,17 @@ export default function Screen({ nodes, materials }: GLTFResult) {
           position={[0.068, 0.358, 0.084]}
           rotation={[1.391, 0.095, -0.357]}
         >
-          {/* <Html
-            rotation-x={-Math.PI / 2}
-            transform
-            position={[0.1, 0.1, 0.1]}
-            occlude
-            scale={0.3}
-            center
-            distanceFactor={4}
-          >
-            <div
-              style={{
-                backgroundColor: "#F0F0F0",
-                width: "200px",
-                height: "200px",
-                touchAction: "auto",
-              }}
+          {entranceAnimationFinished && (
+            <Html
+              center
+              rotation-x={-Math.PI / 2}
+              position={[0, 0.1, 0]}
+              transform
+              distanceFactor={1}
             >
-              <NintendoApp />
-            </div>
-          </Html> */}
+              <ScreenHint />
+            </Html>
+          )}
         </mesh>
 
         <mesh

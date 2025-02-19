@@ -3,9 +3,9 @@ import gsap from "gsap";
 import { useSetAtom } from "jotai";
 import * as React from "react";
 import { mouseOnAtom } from "../../atoms";
-import styles from "../../css/hint.module.css";
+import styles from "../../css/screen-hint.module.css";
 
-export default function Hint() {
+export default function ScreenHint() {
   const [hidden, setHidden] = React.useState(false);
 
   const setMouseOn = useSetAtom(mouseOnAtom);
@@ -43,15 +43,19 @@ export default function Hint() {
       <div className={styles.circle} />
       <div className={styles.line} />
       <span className={[styles.hint, styles.preventSelect].join(" ")}>
-        CONTROLS
+        SCREEN
       </span>
+      <p className={styles.helper}>
+        The screen is not touch-enabled, so interactions are handled using
+        buttons instead.
+      </p>
       <span
         onMouseEnter={() => setMouseOn("HIDE")}
         onMouseLeave={() => setMouseOn("DRAG")}
         className={[styles.hide, styles.preventSelect].join(" ")}
         onClick={() => setHidden(true)}
       >
-        HIDE
+        GOT IT
       </span>
     </div>
   );
