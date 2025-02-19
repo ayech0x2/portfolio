@@ -7,8 +7,15 @@ import Hint from "./hint";
 export default function LeftHand({
   nodes,
   materials,
+  goUp,
+  goDown,
+  goRight,
+  goLeft,
 }: GLTFResult & {
-  buttonPress: (buttonName: string) => void;
+  goUp: VoidFunction;
+  goDown: VoidFunction;
+  goRight: VoidFunction;
+  goLeft: VoidFunction;
 }) {
   const entranceAnimationFinished = useAtomValue(entranceAnimationFinishedAtom);
 
@@ -35,6 +42,9 @@ export default function LeftHand({
         name="UP_button"
         position={[-0.887, 0.377, 0.464]}
         rotation={[-0.215, 0.356, 0.101]}
+        onClick={goUp}
+        onPointerEnter={() => setMouseOn("PRESS")}
+        onPointerLeave={() => setMouseOn("DRAG")}
       >
         <mesh
           geometry={nodes.UP_button_1.geometry}
@@ -44,14 +54,16 @@ export default function LeftHand({
           name="UP_button_2"
           geometry={nodes.UP_button_2.geometry}
           material={materials.Material}
-          onPointerOver={() => setMouseOn("PRESS")}
-          onPointerOut={() => setMouseOn("DRAG")}
+          raycast={() => null}
         ></mesh>
       </group>
       <group
         name="LEFT_button"
         position={[-0.953, 0.301, 0.506]}
         rotation={[-0.215, 0.356, 0.101]}
+        onClick={goLeft}
+        onPointerEnter={() => setMouseOn("PRESS")}
+        onPointerLeave={() => setMouseOn("DRAG")}
       >
         <mesh
           name="LEFT_button_1"
@@ -62,6 +74,7 @@ export default function LeftHand({
           name="LEFT_button_2"
           geometry={nodes.LEFT_button_2.geometry}
           material={materials.Material}
+          raycast={() => null}
         >
           {entranceAnimationFinished && (
             <Html position={[0.12, 0, 0.1]} transform distanceFactor={1}>
@@ -74,6 +87,9 @@ export default function LeftHand({
         name="RIGHT_button"
         position={[-0.807, 0.305, 0.449]}
         rotation={[-0.215, 0.356, 0.101]}
+        onClick={goRight}
+        onPointerEnter={() => setMouseOn("PRESS")}
+        onPointerLeave={() => setMouseOn("DRAG")}
       >
         <mesh
           name="RIGHT_button_1"
@@ -84,12 +100,16 @@ export default function LeftHand({
           name="RIGHT_button_2"
           geometry={nodes.RIGHT_button_2.geometry}
           material={materials.Material}
+          raycast={() => null}
         ></mesh>
       </group>
       <group
         name="DOWN_button"
         position={[-0.873, 0.229, 0.491]}
         rotation={[-0.215, 0.356, 0.101]}
+        onClick={goDown}
+        onPointerEnter={() => setMouseOn("PRESS")}
+        onPointerLeave={() => setMouseOn("DRAG")}
       >
         <mesh
           name="DOWN_button_1"
@@ -100,6 +120,7 @@ export default function LeftHand({
           name="DOWN_button_2"
           geometry={nodes.DOWN_button_2.geometry}
           material={materials.Material}
+          raycast={() => null}
         ></mesh>
       </group>
       <mesh

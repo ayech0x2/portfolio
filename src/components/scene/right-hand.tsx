@@ -1,17 +1,21 @@
 import { Html } from "@react-three/drei";
-import { useAtomValue } from "jotai";
-import { entranceAnimationFinishedAtom } from "../../atoms";
+import { useAtomValue, useSetAtom } from "jotai";
+import { entranceAnimationFinishedAtom, mouseOnAtom } from "../../atoms";
 import { GLTFResult } from "../../types";
 import Hint from "./hint";
 
 export default function RightHand({
   nodes,
   materials,
-  buttonPress,
+  pressOK,
+  pressBack,
 }: GLTFResult & {
-  buttonPress: (buttonName: string) => void;
+  pressOK: VoidFunction;
+  pressBack: VoidFunction;
 }) {
   const entranceAnimationFinished = useAtomValue(entranceAnimationFinishedAtom);
+
+  const setMouseOn = useSetAtom(mouseOnAtom);
 
   return (
     <group name="right_hand_center">
@@ -76,8 +80,10 @@ export default function RightHand({
         name="A_button"
         position={[1.083, 0.627, -0.339]}
         rotation={[-0.215, 0.356, 0.101]}
-        onPointerDown={() => buttonPress("A_button")}
-        onClick={() => buttonPress("A_button")}
+        onPointerDown={pressOK}
+        onClick={pressOK}
+        onPointerEnter={() => setMouseOn("PRESS")}
+        onPointerLeave={() => setMouseOn("DRAG")}
       >
         <mesh
           name="A_button_1"
@@ -88,6 +94,7 @@ export default function RightHand({
           name="A_button_2"
           geometry={nodes.A_button_2.geometry}
           material={materials.Material}
+          raycast={() => null}
         >
           {entranceAnimationFinished && (
             <Html position={[-0.05, 0, 0.1]} transform distanceFactor={1}>
@@ -100,7 +107,9 @@ export default function RightHand({
         name="X_button"
         position={[1.003, 0.699, -0.324]}
         rotation={[-0.215, 0.356, 0.101]}
-        onClick={() => buttonPress("X_button")}
+        onClick={() => void 0}
+        onPointerEnter={() => setMouseOn("PRESS")}
+        onPointerLeave={() => setMouseOn("DRAG")}
       >
         <mesh
           name="X_button_1"
@@ -111,13 +120,16 @@ export default function RightHand({
           name="X_button_2"
           geometry={nodes.X_button_2.geometry}
           material={materials.Material}
+          raycast={() => null}
         ></mesh>
       </group>
       <group
         name="Y_button"
         position={[0.937, 0.623, -0.283]}
         rotation={[-0.215, 0.356, 0.101]}
-        onClick={() => buttonPress("Y_button")}
+        onClick={() => void 0}
+        onPointerEnter={() => setMouseOn("PRESS")}
+        onPointerLeave={() => setMouseOn("DRAG")}
       >
         <mesh
           name="Y_button_1"
@@ -129,13 +141,16 @@ export default function RightHand({
           name="Y_button_2"
           geometry={nodes.Y_button_2.geometry}
           material={materials.Material}
+          raycast={() => null}
         ></mesh>
       </group>
       <group
         name="B_button"
         position={[1.019, 0.551, -0.297]}
         rotation={[-0.215, 0.356, 0.101]}
-        onClick={() => buttonPress("B_button")}
+        onClick={pressBack}
+        onPointerEnter={() => setMouseOn("PRESS")}
+        onPointerLeave={() => setMouseOn("DRAG")}
       >
         <mesh
           name="B_button_1"
@@ -146,6 +161,7 @@ export default function RightHand({
           name="B_button_2"
           geometry={nodes.B_button_2.geometry}
           material={materials.Material}
+          raycast={() => null}
         ></mesh>
       </group>
     </group>
