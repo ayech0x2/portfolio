@@ -1,6 +1,6 @@
 import { useSetAtom } from "jotai";
 import * as React from "react";
-import { mouseOnAtom } from "../../atoms";
+import { mouseOnAtom, showScreenAtom } from "../../atoms";
 import styles from "../../css/screen-hint.module.css";
 import useHintAnimation from "../../hooks/animations/use-hint-animation";
 
@@ -9,9 +9,14 @@ export default function ScreenHint() {
 
   const setMouseOn = useSetAtom(mouseOnAtom);
 
+  const setShowScreen = useSetAtom(showScreenAtom);
+
   const containerRef = React.useRef<HTMLDivElement>(null);
 
-  useHintAnimation(containerRef, () => setHidden(true));
+  useHintAnimation(containerRef, () => {
+    setHidden(true);
+    setShowScreen(true);
+  });
 
   if (hidden) return null;
 
@@ -30,7 +35,10 @@ export default function ScreenHint() {
         onMouseEnter={() => setMouseOn("HIDE")}
         onMouseLeave={() => setMouseOn("DRAG")}
         className={[styles.hide, styles.preventSelect].join(" ")}
-        onClick={() => setHidden(true)}
+        onClick={() => {
+          setHidden(true);
+          setShowScreen(true);
+        }}
       >
         GOT IT
       </span>

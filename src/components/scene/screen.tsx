@@ -1,13 +1,15 @@
 import { Html } from "@react-three/drei";
 import { useAtomValue } from "jotai";
 import { Color } from "three";
-import { entranceAnimationFinishedAtom } from "../../atoms";
+import { entranceAnimationFinishedAtom, showScreenAtom } from "../../atoms";
 import useScreenTexture from "../../hooks/use-screen-texture";
 import { GLTFResult } from "../../types";
 import ScreenHint from "./screen-hint";
-
+import * as React from "react";
 export default function Screen({ nodes, materials }: GLTFResult) {
   const entranceAnimationFinished = useAtomValue(entranceAnimationFinishedAtom);
+
+  const showScreen = useAtomValue(showScreenAtom);
 
   const texture = useScreenTexture();
 
@@ -59,23 +61,27 @@ export default function Screen({ nodes, materials }: GLTFResult) {
           position={[0.068, 0.358, 0.084]}
           rotation={[1.391, 0.095, -0.357]}
         >
-          <meshStandardMaterial
-            map={texture()}
-            color={new Color(1.5, 1.5, 1.5)}
-            emissiveMap={texture()}
-            emissive={"white"}
-            emissiveIntensity={0}
-          />
           {entranceAnimationFinished && (
-            <Html
-              center
-              rotation-x={-Math.PI / 2}
-              position={[0, 0.1, 0]}
-              transform
-              distanceFactor={1}
-            >
-              <ScreenHint />
-            </Html>
+            <React.Fragment>
+              {showScreen && (
+                <meshStandardMaterial
+                  map={texture()}
+                  color={new Color(1.5, 1.5, 1.5)}
+                  emissiveMap={texture()}
+                  emissive={"white"}
+                  emissiveIntensity={0.4}
+                />
+              )}
+              <Html
+                center
+                rotation-x={-Math.PI / 2}
+                position={[0, 0.1, 0]}
+                transform
+                distanceFactor={1}
+              >
+                <ScreenHint />
+              </Html>
+            </React.Fragment>
           )}
         </mesh>
 
