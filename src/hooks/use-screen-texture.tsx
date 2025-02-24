@@ -18,9 +18,11 @@ export default function useScreenTexture() {
     return SCREENS.map((screen) => {
       let subScreenTextures: Array<string> = [];
       if (screen.screens) {
-        subScreenTextures = screen.screens.map((subScreen) => subScreen.src);
+        subScreenTextures = screen.screens.map(
+          (subScreen) => "screens/" + subScreen.src
+        );
       }
-      return [screen.src, ...subScreenTextures];
+      return ["screens/" + screen.src, ...subScreenTextures];
     }).reduce((acc, val) => {
       acc.push(...val);
       return acc;
@@ -43,7 +45,7 @@ export default function useScreenTexture() {
       if (axis === "HORIZONTAL") filename = SCREENS[x].src;
       else if (SCREENS[x].screens) filename = SCREENS[x].screens[y].src;
 
-      return textures.find((texture) => texture.name === filename);
+      return textures.find((texture) => texture.name === "screens/" + filename);
     }
     return null;
   }, [axis, isTexturesLoaded, textures, x, y]);
