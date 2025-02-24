@@ -90,8 +90,8 @@ export default function useSceneAnimations(
     const gameboy = get3dObjectByName(sceneRef, "gameboy");
     if (gameboy) {
       gsap.to(gameboy.rotation, {
-        x: "-=0.05",
-        z: "-=0.05",
+        x: "-=0.03",
+        z: "-=0.03",
         duration: 3,
         ease: "power1.inOut",
         yoyo: true,
@@ -115,7 +115,6 @@ export default function useSceneAnimations(
   };
 
   const playEntranceAnimation = () => {
-    return;
     timelineRef.current.add(standAnimation() as gsap.core.Tween);
     timelineRef.current.add(screenPartTwoAnimation() as gsap.core.Tween);
     timelineRef.current.add(screenPartOneAnimation() as gsap.core.Tween);
