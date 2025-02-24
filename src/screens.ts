@@ -65,4 +65,15 @@ export default [
     src: "5.webp",
     screens: [{ name: "5_0", src: "5_0.webp" }],
   },
+  {
+    name: "6",
+    src: "6_0.webp",
+    screens: [
+      { name: "6_0", src: "6_0.webp" },
+      { name: "6_1", src: "6_1.webp" },
+      { name: "6_2", src: "6_2.webp" },
+      { name: "6_3", src: "6_3.webp" },
+      { name: "6_4", src: "6_4.webp" },
+    ],
+  },
 ];
