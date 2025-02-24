@@ -34,9 +34,9 @@ function Scene(props: GroupProps) {
 
   return (
     <group {...props} dispose={null} ref={sceneRef}>
-      <Cameras />
       {isReady && (
         <React.Fragment>
+          <Cameras />
           <SceneSetup />
           <group name="gameboy">
             <LeftHand {...direction} {...gLTFResult} />
