@@ -87,3 +87,13 @@ export interface MouseCoords {
   x: number;
   y: number;
 }
+
+export type OngoingClick =
+  | "UP"
+  | "DOWN"
+  | "LEFT"
+  | "RIGHT"
+  | "A"
+  | "B"
+  | "Y"
+  | "X";
