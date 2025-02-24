@@ -3,6 +3,7 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { entranceAnimationFinishedAtom, mouseOnAtom } from "../../atoms";
 import { GLTFResult } from "../../types";
 import Hint from "./hint";
+import { isMobile } from "react-device-detect";
 
 export default function LeftHand({
   nodes,
@@ -42,7 +43,8 @@ export default function LeftHand({
         name="UP_button"
         position={[-0.887, 0.377, 0.464]}
         rotation={[-0.215, 0.356, 0.101]}
-        onClick={goUp}
+        onClick={isMobile ? void 0 : goUp}
+        onPointerDown={!isMobile ? void 0 : goUp}
         onPointerEnter={() => setMouseOn("PRESS")}
         onPointerLeave={() => setMouseOn("DRAG")}
       >
@@ -61,7 +63,8 @@ export default function LeftHand({
         name="LEFT_button"
         position={[-0.953, 0.301, 0.506]}
         rotation={[-0.215, 0.356, 0.101]}
-        onClick={goLeft}
+        onClick={isMobile ? void 0 : goLeft}
+        onPointerDown={!isMobile ? void 0 : goLeft}
         onPointerEnter={() => setMouseOn("PRESS")}
         onPointerLeave={() => setMouseOn("DRAG")}
       >
@@ -87,7 +90,8 @@ export default function LeftHand({
         name="RIGHT_button"
         position={[-0.807, 0.305, 0.449]}
         rotation={[-0.215, 0.356, 0.101]}
-        onClick={goRight}
+        onClick={isMobile ? void 0 : goRight}
+        onPointerDown={!isMobile ? void 0 : goRight}
         onPointerEnter={() => setMouseOn("PRESS")}
         onPointerLeave={() => setMouseOn("DRAG")}
       >
@@ -107,7 +111,8 @@ export default function LeftHand({
         name="DOWN_button"
         position={[-0.873, 0.229, 0.491]}
         rotation={[-0.215, 0.356, 0.101]}
-        onClick={goDown}
+        onClick={isMobile ? void 0 : goDown}
+        onPointerDown={!isMobile ? void 0 : goDown}
         onPointerEnter={() => setMouseOn("PRESS")}
         onPointerLeave={() => setMouseOn("DRAG")}
       >

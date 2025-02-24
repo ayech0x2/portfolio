@@ -3,15 +3,18 @@ import { useAtomValue, useSetAtom } from "jotai";
 import { entranceAnimationFinishedAtom, mouseOnAtom } from "../../atoms";
 import { GLTFResult } from "../../types";
 import Hint from "./hint";
+import { isMobile } from "react-device-detect";
 
 export default function RightHand({
   nodes,
   materials,
   pressOK,
   pressBack,
+  pressHome,
 }: GLTFResult & {
   pressOK: VoidFunction;
   pressBack: VoidFunction;
+  pressHome: VoidFunction;
 }) {
   const entranceAnimationFinished = useAtomValue(entranceAnimationFinishedAtom);
 
@@ -80,8 +83,8 @@ export default function RightHand({
         name="A_button"
         position={[1.083, 0.627, -0.339]}
         rotation={[-0.215, 0.356, 0.101]}
-        onPointerDown={pressOK}
-        onClick={pressOK}
+        onPointerDown={!isMobile ? void 0 : pressOK}
+        onClick={isMobile ? void 0 : pressOK}
         onPointerEnter={() => setMouseOn("PRESS")}
         onPointerLeave={() => setMouseOn("DRAG")}
       >
@@ -107,7 +110,8 @@ export default function RightHand({
         name="X_button"
         position={[1.003, 0.699, -0.324]}
         rotation={[-0.215, 0.356, 0.101]}
-        onClick={() => void 0}
+        onClick={isMobile ? void 0 : void 0}
+        onPointerDown={!isMobile ? void 0 : void 0}
         onPointerEnter={() => setMouseOn("PRESS")}
         onPointerLeave={() => setMouseOn("DRAG")}
       >
@@ -127,7 +131,8 @@ export default function RightHand({
         name="Y_button"
         position={[0.937, 0.623, -0.283]}
         rotation={[-0.215, 0.356, 0.101]}
-        onClick={() => void 0}
+        onClick={isMobile ? void 0 : pressHome}
+        onPointerDown={!isMobile ? void 0 : pressHome}
         onPointerEnter={() => setMouseOn("PRESS")}
         onPointerLeave={() => setMouseOn("DRAG")}
       >
@@ -148,7 +153,8 @@ export default function RightHand({
         name="B_button"
         position={[1.019, 0.551, -0.297]}
         rotation={[-0.215, 0.356, 0.101]}
-        onClick={pressBack}
+        onClick={isMobile ? void 0 : pressBack}
+        onPointerDown={!isMobile ? void 0 : pressBack}
         onPointerEnter={() => setMouseOn("PRESS")}
         onPointerLeave={() => setMouseOn("DRAG")}
       >
