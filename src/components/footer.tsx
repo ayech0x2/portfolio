@@ -12,7 +12,7 @@ const phrases = [
   "Hover over objects to learn more.",
   "Use the scroll wheel to zoom in and out.",
   "This scene was built with Three.js and React Three Fiber.",
-  "Rotate the stand to view the Switch from all angles.",
+  "Rotate to view the Switch from all angles.",
   "This scene uses GLTF models for high-quality assets.",
   "Lighting and shadows are dynamically calculated.",
   "Thanks for visiting my portfolio!",
@@ -44,10 +44,11 @@ function Footer() {
     gsap.fromTo(
       containerRef.current,
       {
-        y: -100,
+        y: 100,
         opacity: 0,
       },
       {
+        delay: 0.5,
         y: 0,
         opacity: 1,
         duration: 1,
