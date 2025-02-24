@@ -11,10 +11,12 @@ export default function RightHand({
   pressOK,
   pressBack,
   pressHome,
+  pressGallery,
 }: GLTFResult & {
   pressOK: VoidFunction;
   pressBack: VoidFunction;
   pressHome: VoidFunction;
+  pressGallery: VoidFunction;
 }) {
   const entranceAnimationFinished = useAtomValue(entranceAnimationFinishedAtom);
 
@@ -110,8 +112,8 @@ export default function RightHand({
         name="X_button"
         position={[1.003, 0.699, -0.324]}
         rotation={[-0.215, 0.356, 0.101]}
-        onClick={isMobile ? void 0 : void 0}
-        onPointerDown={!isMobile ? void 0 : void 0}
+        onClick={isMobile ? void 0 : pressGallery}
+        onPointerDown={!isMobile ? void 0 : pressGallery}
         onPointerEnter={() => setMouseOn("PRESS")}
         onPointerLeave={() => setMouseOn("DRAG")}
       >
