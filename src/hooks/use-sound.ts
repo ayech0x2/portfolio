@@ -9,14 +9,17 @@ export default function useSound() {
 
   const clickAudio = useAtomValue(clickAudioAtom);
 
-  const playSound = (delay = 500) => {
-    setTimeout(() => {
-      clickAudio.play();
-    }, delay);
-  };
+  const playSound = React.useCallback(
+    (delay: number = 500) => {
+      setTimeout(() => {
+        clickAudio.play();
+      }, delay);
+    },
+    [clickAudio]
+  );
 
   const playBackgroundMusic = () => {
-    bgAudio.volume = 0.0;
+    bgAudio.volume = 0.5;
     bgAudio.loop = true;
     bgAudio.play();
   };
