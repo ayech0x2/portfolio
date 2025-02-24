@@ -11,10 +11,6 @@
   align-items: center;
 }
 
-.container.desktop {
-  padding: 2rem 8rem;
-}
-
 .scrollDown {
   display: flex;
   align-items: center;

@@ -40,6 +40,7 @@ body {
 
 #canvas-container canvas {
   position: relative;
+  touch-action: auto !important;
 }
 #canvas-container div {
   touch-action: auto !important;
