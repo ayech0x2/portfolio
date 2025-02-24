@@ -1,0 +1,93 @@
+@font-face {
+  font-family: "sfpro";
+  font-weight: 400;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-regular-webfont.woff");
+}
+
+@font-face {
+  font-family: "sfpro";
+  font-weight: 600;
+  src: url("https://applesocial.s3.amazonaws.com/assets/styles/fonts/sanfrancisco/sanfranciscodisplay-semibold-webfont.woff");
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+html {
+  font-size: 10px;
+}
+
+body {
+  margin: 0;
+  background-color: black;
+  font-family: "sfpro";
+  color: rgb(252, 252, 252);
+  font-family: 400;
+  overflow: hidden;
+}
+#canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  background-color: black;
+  z-index: 1;
+}
+
+#canvas-container canvas {
+  position: relative;
+}
+#canvas-container div {
+  touch-action: auto !important;
+}
+
+#scroll-trigger {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 99;
+  height: 400vh;
+  width: 100vw;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
+#scroll-trigger::-webkit-scrollbar {
+  display: none;
+}
+
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+.stats-panel {
+  bottom: 1rem;
+  right: 1rem;
+  left: unset !important;
+  top: unset !important;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  .stats-panel {
+    left: 0 !important;
+    top: 4rem !important;
+    height: 4rem;
+    right: unset !important;
+  }
+}
+
+svg {
+  height: 2rem;
+  width: 2rem;
+}
+@media (min-width: 992px) {
+  svg {
+    height: 3rem;
+    width: 3rem;
+  }
+}

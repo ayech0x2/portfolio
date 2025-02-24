@@ -1,35 +1,56 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Canvas } from "@react-three/fiber";
+import { useAtomValue } from "jotai";
+import * as React from "react";
+import { entranceAnimationFinishedAtom, loadingAtom } from "./atoms";
+import Footer from "./components/footer";
+import Header from "./components/header";
+import LandscapeMode from "./components/landscape-mode";
+import LoadingOverlay from "./components/loading-overlay";
+import Mouse from "./components/mouse";
+import Scene from "./components/scene";
+import Utils from "./components/utils";
+import useScreenOrientation from "./hooks/use-screen-orientation";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const loading = useAtomValue(loadingAtom);
+
+  const portrait = useScreenOrientation();
+
+  const entranceAnimationFinished = useAtomValue(entranceAnimationFinishedAtom);
+
+  const [mouseCoords, setMouseCoords] = React.useState({ x: 0, y: 0 });
+
+  const canvasRef = React.useRef(null);
+
+  const mouseHandler = React.useCallback(
+    (e: MouseEvent) => {
+      setMouseCoords({ x: e.clientX, y: e.clientY });
+    },
+    [setMouseCoords]
+  );
+
+  React.useEffect(() => {
+    window.addEventListener("mousemove", mouseHandler);
+    return () => window.removeEventListener("mousemove", mouseHandler);
+  }, [mouseHandler]);
+
+  if (loading) return <LoadingOverlay />;
+
+  if (!loading && portrait) return <LandscapeMode />;
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <React.Fragment>
+      {entranceAnimationFinished && <Utils />}
+      <Mouse {...mouseCoords} />
+      <Header />
+      <Footer />
+      <div id="canvas-container">
+        <Canvas ref={canvasRef}>
+          <Scene />
+        </Canvas>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </React.Fragment>
+  );
 }
 
-export default App
+export default App;

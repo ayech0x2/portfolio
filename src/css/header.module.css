@@ -1,0 +1,12 @@
+.container {
+  position: fixed;
+  z-index: 2;
+  width: 100vw;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
+}
+.container.desktop {
+  gap: 2rem;
+}
