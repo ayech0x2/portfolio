@@ -22,7 +22,7 @@ function Scene(props: GroupProps) {
 
   const sceneRef = React.useRef<THREE.Group>(null!);
 
-  const gLTFResult = useGLTF("/scene.glb") as unknown as GLTFResult;
+  const gLTFResult = useGLTF("scene.glb") as unknown as GLTFResult;
 
   const { buttons, direction } = useSceneInteractions(sceneRef);
 
@@ -64,4 +64,4 @@ function Scene(props: GroupProps) {
 
 export default React.memo(Scene);
 
-useGLTF.preload("/scene.glb");
+useGLTF.preload("scene.glb");
