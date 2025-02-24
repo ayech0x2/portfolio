@@ -80,7 +80,7 @@ function SceneSetup() {
         enableRotate={true}
         enableZoom={true}
         minDistance={3}
-        maxDistance={10}
+        maxDistance={8}
         dampingFactor={isMobile ? 0.05 : 0.01}
         zoomSpeed={0.1}
         onStart={() => setMouseOn("DROP")}
@@ -96,11 +96,11 @@ function SceneSetup() {
       <Lights />
       <EffectComposer>
         <Bloom
-          intensity={0.2}
+          intensity={0.1}
           luminanceThreshold={0.4}
           luminanceSmoothing={0.05}
         />
-        <HueSaturation hue={0} saturation={0.35} />
+        <HueSaturation hue={0} saturation={0.1} />
       </EffectComposer>
       <Environment resolution={1024}>
         <Lightformers />
