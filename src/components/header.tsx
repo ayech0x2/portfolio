@@ -3,6 +3,7 @@ import gsap from "gsap";
 import * as React from "react";
 import styles from "../css/header.module.css";
 import text from "../css/text.module.css";
+import { isMobile } from "react-device-detect";
 
 function Header() {
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -23,7 +24,10 @@ function Header() {
   });
 
   return (
-    <div ref={containerRef} className={styles.container}>
+    <div
+      ref={containerRef}
+      className={[styles.container, !isMobile ? styles.desktop : ""].join(" ")}
+    >
       <div
         className={[
           text.title,
