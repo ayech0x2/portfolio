@@ -27,3 +27,5 @@ export const xAtom = atom(0);
 export const yAtom = atom(0);
 
 export const axisAtom = atom<"HORIZONTAL" | "VERTICAL">("HORIZONTAL");
+
+export const showScreenAtom = atom(false);
