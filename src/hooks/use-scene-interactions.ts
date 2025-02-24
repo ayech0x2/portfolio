@@ -88,6 +88,7 @@ export default function useSceneInteractions(
     handleButtonPress(
       "B_button",
       () => {
+        if (x === 6) setX(0);
         setAxis("HORIZONTAL");
         setY(0);
       },
@@ -99,6 +100,31 @@ export default function useSceneInteractions(
     isClickOngoing,
     setAsOngoingClick,
     setAxis,
+    setX,
+    setY,
+    x,
+  ]);
+
+  const pressGallery = React.useCallback(() => {
+    if (isClickOngoing("X")) return;
+    setAsOngoingClick("X");
+    handleButtonPress(
+      "X_button",
+      () => {
+        if (axis === "VERTICAL") return;
+        setAxis("VERTICAL");
+        setX(6);
+        setY(0);
+      },
+      axis === "HORIZONTAL"
+    );
+  }, [
+    axis,
+    handleButtonPress,
+    isClickOngoing,
+    setAsOngoingClick,
+    setAxis,
+    setX,
     setY,
   ]);
 
@@ -191,6 +217,6 @@ export default function useSceneInteractions(
 
   return {
     direction: { goUp, goDown, goLeft, goRight },
-    buttons: { pressOK, pressBack, pressHome },
+    buttons: { pressOK, pressBack, pressHome, pressGallery },
   };
 }
