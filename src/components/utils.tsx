@@ -2,6 +2,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { useAtom, useSetAtom } from "jotai";
 import * as React from "react";
+import { isMobile } from "react-device-detect";
 import screenfull from "screenfull";
 import { cameraZoomAtom, mouseOnAtom, resetViewRequestAtom } from "../atoms";
 import styles from "../css/utils.module.css";
@@ -12,7 +13,6 @@ import MuteIcon from "./icons/mute-icon";
 import UnmuteIcon from "./icons/unmute-icon";
 import ZoomInIcon from "./icons/zoom-in-icon";
 import ZoomOutIcon from "./icons/zoom-out-icon";
-import { isMobile } from "react-device-detect";
 
 function Utils() {
   const containerRef = React.useRef<HTMLDivElement>(null);
@@ -29,7 +29,7 @@ function Utils() {
     gsap.fromTo(
       containerRef.current,
       {
-        x: 100,
+        x: isMobile ? -100 : 100,
         opacity: 0,
       },
       {
@@ -60,7 +60,10 @@ function Utils() {
   };
 
   return (
-    <div ref={containerRef} className={styles.container}>
+    <div
+      ref={containerRef}
+      className={[styles.container, isMobile ? styles.mobile : ""].join(" ")}
+    >
       {muted ? (
         <div
           className={styles.child}
