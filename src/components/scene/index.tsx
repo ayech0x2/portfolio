@@ -2,17 +2,18 @@ import { Scroll, ScrollControls, useGLTF } from "@react-three/drei";
 import { GroupProps } from "@react-three/fiber";
 import { useAtomValue } from "jotai";
 import * as React from "react";
+import { isMobile } from "react-device-detect";
 import * as THREE from "three";
 import { entranceAnimationFinishedAtom } from "../../atoms";
 import useSceneInteractions from "../../hooks/use-scene-interactions";
 import { GLTFResult } from "../../types";
 import SceneSetup from "../scene-setup";
+import Animations from "./animations";
 import Cameras from "./cameras";
 import LeftHand from "./left-hand";
 import RightHand from "./right-hand";
 import Screen from "./screen";
 import Screws from "./screws";
-import ScrollHandler from "./scroll-handler";
 import Stand from "./stand";
 
 function Scene(props: GroupProps) {
@@ -49,15 +50,19 @@ function Scene(props: GroupProps) {
           </group>
         </React.Fragment>
       )}
-      <ScrollControls
-        pages={8}
-        maxSpeed={0.1}
-        enabled={!entranceAnimationFinished}
-      >
-        <Scroll>
-          <ScrollHandler sceneRef={sceneRef} isReady={isReady} />
-        </Scroll>
-      </ScrollControls>
+      {isMobile ? (
+        <Animations sceneRef={sceneRef} isReady={isReady} />
+      ) : (
+        <ScrollControls
+          pages={8}
+          maxSpeed={0.1}
+          enabled={!entranceAnimationFinished}
+        >
+          <Scroll>
+            <Animations sceneRef={sceneRef} isReady={isReady} />
+          </Scroll>
+        </ScrollControls>
+      )}
     </group>
   );
 }
