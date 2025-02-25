@@ -1,12 +1,18 @@
-import { useTexture } from "@react-three/drei";
 import { useAtomValue } from "jotai";
 import * as React from "react";
-import * as THREE from "three";
-import { axisAtom, xAtom, yAtom } from "../atoms";
+import {
+  areTexturesPreloadedAtom,
+  axisAtom,
+  preloadedTexturesAtom,
+  xAtom,
+  yAtom,
+} from "../atoms";
 import SCREENS from "../screens";
 
 export default function useScreenTexture() {
-  const [isTexturesLoaded, setIsTexturesLoaded] = React.useState(false);
+  const preloadedTextures = useAtomValue(preloadedTexturesAtom);
+
+  const areTexturesPreloaded = useAtomValue(areTexturesPreloadedAtom);
 
   const x = useAtomValue(xAtom);
 
@@ -14,39 +20,16 @@ export default function useScreenTexture() {
 
   const axis = useAtomValue(axisAtom);
 
-  const texturesArray = () => {
-    return SCREENS.map((screen) => {
-      let subScreenTextures: Array<string> = [];
-      if (screen.screens) {
-        subScreenTextures = screen.screens.map(
-          (subScreen) => "screens/" + subScreen.src
-        );
-      }
-      return ["screens/" + screen.src, ...subScreenTextures];
-    }).reduce((acc, val) => {
-      acc.push(...val);
-      return acc;
-    });
-  };
-
-  const textures = useTexture(texturesArray(), (loadedTextures) => {
-    const names = texturesArray();
-    loadedTextures.map((loadedTexture, index) => {
-      loadedTexture.flipY = false;
-      loadedTexture.colorSpace = THREE.SRGBColorSpace;
-      return (loadedTexture.name = names[index]);
-    });
-    setIsTexturesLoaded(true);
-  });
-
   return React.useCallback(() => {
-    if (isTexturesLoaded) {
+    if (areTexturesPreloaded) {
       let filename = SCREENS[x].src;
       if (axis === "HORIZONTAL") filename = SCREENS[x].src;
       else if (SCREENS[x].screens) filename = SCREENS[x].screens[y].src;
 
-      return textures.find((texture) => texture.name === "screens/" + filename);
+      return preloadedTextures.find(
+        (texture) => texture.name === "screens/" + filename
+      );
     }
     return null;
-  }, [axis, isTexturesLoaded, textures, x, y]);
+  }, [areTexturesPreloaded, axis, preloadedTextures, x, y]);
 }
