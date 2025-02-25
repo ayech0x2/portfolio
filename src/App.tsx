@@ -1,6 +1,7 @@
 import { Canvas } from "@react-three/fiber";
 import { useAtomValue } from "jotai";
 import * as React from "react";
+import { isMobile } from "react-device-detect";
 import { entranceAnimationFinishedAtom, loadingAtom } from "./atoms";
 import Footer from "./components/footer";
 import Header from "./components/header";
@@ -20,8 +21,6 @@ function App() {
 
   const [mouseCoords, setMouseCoords] = React.useState({ x: 0, y: 0 });
 
-  const canvasRef = React.useRef(null);
-
   const mouseHandler = React.useCallback(
     (e: MouseEvent) => {
       setMouseCoords({ x: e.clientX, y: e.clientY });
@@ -30,27 +29,26 @@ function App() {
   );
 
   React.useEffect(() => {
-    window.addEventListener("mousemove", mouseHandler);
+    if (!isMobile) window.addEventListener("mousemove", mouseHandler);
     return () => window.removeEventListener("mousemove", mouseHandler);
   }, [mouseHandler]);
 
   if (loading) return <LoadingOverlay />;
-
-  if (!loading && portrait) return <LandscapeMode />;
-
-  return (
-    <React.Fragment>
-      {entranceAnimationFinished && <Utils />}
-      <Mouse {...mouseCoords} />
-      <Header />
-      <Footer />
-      <div id="canvas-container">
-        <Canvas ref={canvasRef}>
-          <Scene />
-        </Canvas>
-      </div>
-    </React.Fragment>
-  );
+  else if (!loading && portrait) return <LandscapeMode />;
+  else
+    return (
+      <React.Fragment>
+        {entranceAnimationFinished && <Utils />}
+        {!isMobile && <Mouse {...mouseCoords} />}
+        <Header />
+        <Footer />
+        <div id="canvas-container">
+          <Canvas>
+            <Scene />
+          </Canvas>
+        </div>
+      </React.Fragment>
+    );
 }
 
 export default App;

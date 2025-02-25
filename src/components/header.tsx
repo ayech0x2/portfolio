@@ -16,6 +16,7 @@ function Header() {
         opacity: 0,
       },
       {
+        delay: 0.5,
         y: 0,
         opacity: 1,
         duration: 1,

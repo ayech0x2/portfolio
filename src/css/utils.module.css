@@ -10,6 +10,12 @@
   justify-content: center;
   gap: 1rem;
 }
+.container.mobile {
+  left: 0;
+  padding-right: unset;
+  padding-left: 1rem;
+  right: unset;
+}
 
 .child {
   position: relative;

@@ -2,7 +2,7 @@ import * as React from "react";
 import * as THREE from "three";
 import useSceneAnimations from "../../hooks/use-scene-animations";
 
-function ScrollHandler({
+function Animations({
   sceneRef,
   isReady,
 }: {
@@ -14,4 +14,4 @@ function ScrollHandler({
   return <group />;
 }
 
-export default React.memo(ScrollHandler);
+export default React.memo(Animations);

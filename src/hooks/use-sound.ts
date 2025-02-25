@@ -19,7 +19,7 @@ export default function useSound() {
   );
 
   const playBackgroundMusic = () => {
-    bgAudio.volume = 0.5;
+    bgAudio.volume = 0.3;
     bgAudio.loop = true;
     bgAudio.play();
   };

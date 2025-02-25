@@ -90,8 +90,7 @@ function SceneSetup() {
           TWO: THREE.TOUCH.DOLLY_PAN,
         }}
       />
-
-      <Stats className="stats-panel" />
+      {!isMobile && <Stats className="stats-panel" />}
       <Particles />
       <Lights />
       <EffectComposer>

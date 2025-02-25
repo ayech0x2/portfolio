@@ -1,3 +1,4 @@
+import { useGSAP } from "@gsap/react";
 import { useScroll } from "@react-three/drei";
 import { useFrame } from "@react-three/fiber";
 import gsap from "gsap";
@@ -13,7 +14,7 @@ import useScreenPartTwoAnimation from "./animations/use-screen-part-two-animatio
 import useScrewsHandAnimation from "./animations/use-screws-animations";
 import useStandAnimation from "./animations/use-stand-animation";
 import useSceneHelpers from "./use-scene-helpers";
-import { useGSAP } from "@gsap/react";
+import { isMobile } from "react-device-detect";
 
 export default function useSceneAnimations(
   sceneRef: React.RefObject<THREE.Group>,
@@ -39,6 +40,17 @@ export default function useSceneAnimations(
     entranceAnimationFinishedAtom
   );
 
+  const timelineRef = React.useRef(
+    gsap.timeline({
+      paused: true,
+      onComplete: function () {
+        setEntranceAnimationFinished(true);
+        setMouseOn("DRAG");
+        this.kill();
+      },
+    })
+  );
+
   React.useEffect(() => {
     if (!entranceAnimationFinished) {
       setMouseOn("SCROLL");
@@ -62,17 +74,6 @@ export default function useSceneAnimations(
       }
     },
     { dependencies: [isReady] }
-  );
-
-  const timelineRef = React.useRef(
-    gsap.timeline({
-      paused: true,
-      onComplete: function () {
-        setEntranceAnimationFinished(true);
-        setMouseOn("DRAG");
-        this.kill();
-      },
-    })
   );
 
   useFrame(() => {
@@ -115,14 +116,15 @@ export default function useSceneAnimations(
   };
 
   const playEntranceAnimation = () => {
-    timelineRef.current.add(standAnimation() as gsap.core.Tween);
-    timelineRef.current.add(screenPartTwoAnimation() as gsap.core.Tween);
-    timelineRef.current.add(screenPartOneAnimation() as gsap.core.Tween);
-    timelineRef.current.add(rightHandAnimation() as gsap.core.Tween);
-    timelineRef.current.add(leftHandAnimation() as gsap.core.Tween);
-    timelineRef.current.add(gameboyAnimation() as gsap.core.Tween);
-    timelineRef.current.add(screwsAnimation() as gsap.core.Tween);
-    timelineRef.current.add(gameboyAnimation("BACKWARD") as gsap.core.Tween);
+    timelineRef.current.add(standAnimation() as gsap.core.Tween, 0);
+    timelineRef.current.add(screenPartTwoAnimation() as gsap.core.Tween, 1);
+    timelineRef.current.add(screenPartOneAnimation() as gsap.core.Tween, 2);
+    timelineRef.current.add(rightHandAnimation() as gsap.core.Tween, 3);
+    timelineRef.current.add(leftHandAnimation() as gsap.core.Tween, 4);
+    timelineRef.current.add(gameboyAnimation() as gsap.core.Tween, 5);
+    timelineRef.current.add(screwsAnimation() as gsap.core.Tween, 6);
+    timelineRef.current.add(gameboyAnimation("BACKWARD") as gsap.core.Tween, 7);
+    if (isMobile) timelineRef.current.play().duration(12);
   };
 
   return { startWigglingGameBoy, playEntranceAnimation, startWigglingStand };
