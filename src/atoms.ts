@@ -1,4 +1,5 @@
 import { atom } from "jotai";
+import { Texture } from "three";
 import { MouseOn } from "./types";
 
 export const defaultCameraOptionsAtom = atom({
@@ -29,3 +30,7 @@ export const yAtom = atom(0);
 export const axisAtom = atom<"HORIZONTAL" | "VERTICAL">("HORIZONTAL");
 
 export const showScreenAtom = atom(false);
+
+export const preloadedTexturesAtom = atom<Array<Texture>>([]);
+
+export const areTexturesPreloadedAtom = atom(false);
