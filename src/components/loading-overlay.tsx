@@ -1,15 +1,20 @@
 import { useGSAP } from "@gsap/react";
 import { useProgress } from "@react-three/drei";
 import gsap from "gsap";
-import { useSetAtom } from "jotai";
+import { useAtomValue, useSetAtom } from "jotai";
 import * as React from "react";
-import { loadingAtom } from "../atoms";
+import { areTexturesPreloadedAtom, loadingAtom } from "../atoms";
 import styles from "../css/loading.module.css";
 import useSound from "../hooks/use-sound";
 import EnvironementIcon from "./icons/environement-icon";
+import usePreloadTextures from "../hooks/use-preload-textures";
 
 export default function LoadingOverlay() {
   const { progress } = useProgress();
+
+  usePreloadTextures();
+
+  const areTexturesPreloaded = useAtomValue(areTexturesPreloadedAtom);
 
   const { playBackgroundMusic } = useSound();
 
@@ -38,7 +43,7 @@ export default function LoadingOverlay() {
   );
 
   const handleButtonPress = () => {
-    if (progress >= 100) {
+    if (progress >= 100 && areTexturesPreloaded) {
       playBackgroundMusic();
       setLoading(false);
     }
