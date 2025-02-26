@@ -4,8 +4,8 @@ import styles from "../css/footer.module.css";
 import text from "../css/text.module.css";
 
 import gsap from "gsap";
-import LampIcon from "./icons/lamp-icon";
 import { isMobile } from "react-device-detect";
+import LampIcon from "./icons/lamp-icon";
 
 const phrases = [
   "Click and drag to explore the scene!",
@@ -61,11 +61,11 @@ function Footer() {
       ref={containerRef}
       className={[styles.container, !isMobile ? styles.desktop : ""].join(" ")}
     >
-      <div className={[text.p, text.preventSelect].join(" ")}>
-        4yech.hamza@gmail.com
+      <div className={[text.p].join(" ")}>
+        <a href="mailto:4yech.hamza@gmail.com">4yech.hamza@gmail.com</a>
       </div>
-      <div className={[text.p, text.preventSelect].join(" ")}>
-        Phone: +216 54 07 18 21
+      <div className={[text.p].join(" ")}>
+        <a href="tel:+21654071821">Phone: +216 54 07 18 21</a>
       </div>
       <div
         ref={helpRef}

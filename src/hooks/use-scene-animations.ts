@@ -91,8 +91,8 @@ export default function useSceneAnimations(
     const gameboy = get3dObjectByName(sceneRef, "gameboy");
     if (gameboy) {
       gsap.to(gameboy.rotation, {
-        x: "-=0.03",
-        z: "-=0.03",
+        x: "-=0.025",
+        z: "-=0.025",
         duration: 3,
         ease: "power1.inOut",
         yoyo: true,

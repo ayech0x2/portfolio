@@ -12,9 +12,6 @@
 
 * {
   box-sizing: border-box;
-  -webkit-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
 }
 html {
   font-size: 10px;
@@ -83,8 +80,8 @@ body {
 }
 
 svg {
-  height: 2rem;
-  width: 2rem;
+  height: 1.5rem;
+  width: 1.5rem;
 }
 @media (min-width: 992px) {
   svg {

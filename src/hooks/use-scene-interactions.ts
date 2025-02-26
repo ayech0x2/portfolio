@@ -158,11 +158,11 @@ export default function useSceneInteractions(
       () => {
         if (axis === "VERTICAL") return;
         setX((old) => {
-          if (old < SCREENS.length - 1) return old + 1;
+          if (old < SCREENS.length - 2) return old + 1;
           return old;
         });
       },
-      axis === "HORIZONTAL" && x < SCREENS.length - 1
+      axis === "HORIZONTAL" && x < SCREENS.length - 2
     );
   }, [axis, handleButtonPress, isClickOngoing, setAsOngoingClick, setX, x]);
 
